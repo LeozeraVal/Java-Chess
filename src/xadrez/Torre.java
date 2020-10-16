@@ -5,11 +5,6 @@ public class Torre {
     private char cor;
 
     public Torre(char cor) {
-        this.setCor(cor);
-    }
-
-
-    public void setCor(char cor) {
         if (cor == 'p' || cor == 'b') {
             this.cor = cor;
         } else {

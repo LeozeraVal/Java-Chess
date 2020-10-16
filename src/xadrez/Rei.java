@@ -5,13 +5,10 @@ public class Rei {
     private char cor;
 
     public Rei(char cor) {
-        this.setCor(cor);
-    }
-
-
-    public void setCor(char cor) {
         if (cor == 'p' || cor == 'b') {
             this.cor = cor;
+        } else {
+            System.out.println("Uma peca tem que ser preta ou branca.");
         }
     }
 

@@ -8,13 +8,10 @@ public class Tabuleiro {
     public Tabuleiro() {
         for (int linha = 0; linha < this.posicoes.length; linha++) {
             for (int coluna = 0; coluna < this.posicoes[linha].length; coluna++) {
-                this.posicoes[linha][coluna] = new Posicao();
-                this.posicoes[linha][coluna].setColuna((char)(coluna+97));
-                this.posicoes[linha][coluna].setLinha(linha+1);
                 if ((linha + coluna) % 2 == 0) {
-                    this.posicoes[linha][coluna].setCor('p');
+                    this.posicoes[linha][coluna] = new Posicao('p', linha+1, (char)(coluna+97), false);
                 } else {
-                    this.posicoes[linha][coluna].setCor('b');
+                    this.posicoes[linha][coluna] = new Posicao('b', linha+1, (char)(coluna+97), false);
                 }
             }
         }

@@ -53,7 +53,32 @@ public class Teste {
 
         System.out.println("############################");
 
+        System.out.println("Testes de criacao de posicao:");
 
+        System.out.println("Testes criacao com linha invalida:");
+        Posicao testpos = new Posicao('b', 136, 'f', false);
+        testpos = new Posicao('b', 0, 'f', false);
+        System.out.println("############################");
+
+        System.out.println("Testes criacao com coluna invalida:");
+        testpos = new Posicao('b', 5, 'z', false);
+        testpos = new Posicao('b', 0, '-', false);
+        System.out.println("############################");
+
+        System.out.println("Testes criacao com cor invalida:");
+        testpos = new Posicao('a', 5, 'f', false);
+        testpos = new Posicao('c', 0, 'f', false);
+        System.out.println("############################");
+
+        System.out.println("Testes criacao valida:");
+        testpos = new Posicao('b', 5, 'f', false);
+        System.out.println(testpos);
+        testpos = new Posicao('b', 1, 'g', false);
+        System.out.println(testpos);
+        System.out.println("############################");
+
+        System.out.println("############################");
+        
         System.out.println("Testes de movimentos no tabuleiro e status do tabuleiro:");
         Jogo jogoTeste = new Jogo();
 
@@ -95,13 +120,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste de pecas especificas:");
-        Posicao origTeste = new Posicao();
-        Posicao destTeste = new Posicao();
+        Posicao origTeste = new Posicao('p', 3, 'c', false);
+        Posicao destTeste = new Posicao('b', 3, 'b', false);
         origTeste.setColuna('c');
         origTeste.setLinha(3);
-
+        
         System.out.println("Testes Peao:");
-
+        
         System.out.println("Teste movimento lateral:");
         destTeste.setColuna('b');
         destTeste.setLinha(3);

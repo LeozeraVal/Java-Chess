@@ -9,11 +9,29 @@ public class Posicao {
     private boolean tem_peca;
 
 
-    public Posicao() {
-        this.cor = 'p';
-        this.linha = 1;
-        this.coluna = 'a';
-        this.tem_peca = false;
+    public Posicao(char cor, int linha, char coluna, boolean tem_peca) {
+        //Checa consistencia da cor
+        if (cor != 'b' && cor != 'p') {
+            System.out.println("> ERRO! " + cor + " nao eh uma cor valida!");
+            return;
+        } else {
+            this.cor = cor;
+        }
+        //Checa consistencia da linha
+        if (linha > 8 || linha < 1) {
+            System.out.println("> ERRO! " + linha + " nao eh uma linha valida!");
+            return;
+        } else {
+            this.linha = linha;
+        }
+        //Checa consistencia da coluna
+        if (coluna > 'h' || coluna < 'a') {
+            System.out.println("> ERRO! " + coluna + " nao eh uma coluna valida!");
+            return;
+        } else {
+            this.coluna = coluna;
+        }
+        this.tem_peca = tem_peca;
     }
 
 
@@ -21,20 +39,11 @@ public class Posicao {
         return this.cor;
     }
 
-    // apenas checa a consistencia dos dados
-    public void setCor(char cor) {
-        if (cor != 'b' && cor != 'p') {
-            System.out.println("> ERRO! " + cor + " nao eh uma cor valida!");
-        } else {
-            this.cor = cor;
-        }
-    }
-
     public int getLinha() {
         return this.linha;
     }
 
-    // apenas checa a consistencia dos dados
+    // Apenas existe para testes, sera removido no programa final
     public void setLinha(int linha) {
         if (linha > 8 || linha < 1) {
             System.out.println("> ERRO! " + linha + " nao eh uma linha valida!");
@@ -47,7 +56,7 @@ public class Posicao {
         return this.coluna;
     }
 
-    // apenas checa a consistencia dos dados
+    // Apenas existe para testes, sera removido no programa final
     public void setColuna(char coluna) {
         if (coluna > 'h' || coluna < 'a') {
             System.out.println("> ERRO! " + coluna + " nao eh uma coluna valida!");
@@ -58,5 +67,11 @@ public class Posicao {
 
     public boolean temPeca() {
         return this.tem_peca;
+    }
+
+    //Usado quando uma peca for retirada desta posicao
+    public void setPeca(boolean tem) {
+        this.tem_peca = tem;
+        return;
     }
 }

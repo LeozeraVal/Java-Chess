@@ -30,18 +30,15 @@ public class Jogo {
     // Funcao privada para passar a vez.
     private void passarVez() {
         System.out.println("Passando a vez.");
-        if (this.getTurn() == 'b') {
-            this.setTurn('p');
+        if (this.turn == 'b') {
+            this.turn = 'p';
         } else {
-            this.setTurn('b');
+            this.turn = 'b';
         }
     }
 
-    private void setTurn(char turno) {
-        this.turn = turno;
-    }
-
-    private char getTurn() {
+    // Pode ser usado pelo gerenciador
+    public char getTurn() {
         return this.turn;
     }
 }

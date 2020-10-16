@@ -5,13 +5,10 @@ public class Cavalo {
     private char cor;
 
     public Cavalo(char cor) {
-        this.setCor(cor);
-    }
-
-
-    public void setCor(char cor) {
         if (cor == 'p' || cor == 'b') {
             this.cor = cor;
+        } else {
+            System.out.println("Uma peca tem que ser preta ou branca.");
         }
     }
 
