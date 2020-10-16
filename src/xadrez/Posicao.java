@@ -43,26 +43,8 @@ public class Posicao {
         return this.linha;
     }
 
-    // Apenas existe para testes, sera removido no programa final
-    public void setLinha(int linha) {
-        if (linha > 8 || linha < 1) {
-            System.out.println("> ERRO! " + linha + " nao eh uma linha valida!");
-        } else {
-            this.linha = linha;
-        }
-    }
-
     public int getColuna() {
         return this.coluna;
-    }
-
-    // Apenas existe para testes, sera removido no programa final
-    public void setColuna(char coluna) {
-        if (coluna > 'h' || coluna < 'a') {
-            System.out.println("> ERRO! " + coluna + " nao eh uma coluna valida!");
-        } else {
-            this.coluna = coluna;
-        }
     }
 
     public boolean temPeca() {

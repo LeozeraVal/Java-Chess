@@ -122,14 +122,10 @@ public class Teste {
         System.out.println("Teste de pecas especificas:");
         Posicao origTeste = new Posicao('p', 3, 'c', false);
         Posicao destTeste = new Posicao('b', 3, 'b', false);
-        origTeste.setColuna('c');
-        origTeste.setLinha(3);
         
         System.out.println("Testes Peao:");
         
         System.out.println("Teste movimento lateral:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(3);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -138,8 +134,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal indefinido:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'd', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -148,8 +143,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento frontal indefinido:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(6);
+        destTeste = new Posicao('b', 6, 'c', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -160,8 +154,7 @@ public class Teste {
         System.out.println("Teste Branco:");
 
         System.out.println("Teste movimento 1 pra tras:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'c', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -170,8 +163,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 2 pra tras:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'c', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -180,8 +172,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal esquerda tras:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'b', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -190,8 +181,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal direita tras:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'd', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -200,8 +190,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 1 pra frente:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'c', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -210,8 +199,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 2 pra frente:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'c', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -220,8 +208,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal esquerda frente:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'b', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -230,8 +217,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal direita frente:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'd', false);
         if(peaoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -244,8 +230,7 @@ public class Teste {
         System.out.println("Teste Preto:");
 
         System.out.println("Teste movimento 1 pra tras:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'c', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -254,8 +239,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 2 pra tras:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'c', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -264,8 +248,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal esquerda tras:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'b', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -274,8 +257,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal direita tras:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'd', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -284,8 +266,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 1 pra frente:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'c', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -294,8 +275,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento 2 pra frente:");
-        destTeste.setColuna('c');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'c', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -304,8 +284,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal esquerda frente:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'b', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -314,8 +293,7 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal direita frente:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'd', false);
         if(peaoP.checaMovimento(origTeste, destTeste)) {
             System.out.println("Peao se move");
         } else {
@@ -330,15 +308,13 @@ public class Teste {
         System.out.println("Teste Bispo:");
 
         System.out.println("Teste movimento diagonal direita frente e tras:");
-        destTeste.setColuna('e');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'e', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
             System.out.println("Bispo nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'e', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
@@ -347,15 +323,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal esquerda frente e tras:");
-        destTeste.setColuna('a');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'a', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
             System.out.println("Bispo nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'a', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
@@ -364,15 +338,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento lateral esquerda frente e tras:");
-        destTeste.setColuna('a');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'a', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
             System.out.println("Bispo nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'e', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
@@ -381,15 +353,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em L:");
-        destTeste.setColuna('a');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'a', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
             System.out.println("Bispo nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'e', false);
         if(bispoB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Bispo se move");
         } else {
@@ -399,61 +369,52 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Testes Cavalo:");
-        origTeste.setLinha(3);
-        origTeste.setColuna('d');
+        origTeste = new Posicao('b', 3, 'd', false);
 
         System.out.println("Teste movimento em L:");
-        destTeste.setColuna('b');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'b', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('b');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'b', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('f');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'f', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('f');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'f', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'c', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'e', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'e', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'c', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
@@ -462,15 +423,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento lateral:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'f', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'a', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
@@ -478,15 +437,13 @@ public class Teste {
         }
         System.out.println("############################");
         System.out.println("Teste movimento diagonal:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'f', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'a', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
@@ -495,15 +452,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento vertical:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'd', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
             System.out.println("Cavalo nao se move");
         }
-        destTeste.setColuna('d');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'd', false);
         if(cavaloB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Cavalo se move");
         } else {
@@ -515,15 +470,13 @@ public class Teste {
         System.out.println("Testes Torre:");
 
         System.out.println("Teste movimento vertical:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'd', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
             System.out.println("Torre nao se move");
         }
-        destTeste.setColuna('d');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'd', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
@@ -532,15 +485,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento horizontal:");
-        destTeste.setColuna('g');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'g', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
             System.out.println("Torre nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'a', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
@@ -549,15 +500,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento L:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'f', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
             System.out.println("Torre nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'e', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
@@ -566,15 +515,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento diagonal:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'f', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
             System.out.println("Torre nao se move");
         }
-        destTeste.setColuna('b');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'b', false);
         if(torreB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Torre se move");
         } else {
@@ -586,29 +533,25 @@ public class Teste {
         System.out.println("Testes Rei:");
 
         System.out.println("Teste movimentos uma casa diagonal:");
-        destTeste.setColuna('e');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'e', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'e', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'c', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'c', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
@@ -617,29 +560,25 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimentos uma casa horzintal/vertical:");
-        destTeste.setColuna('d');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'd', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('d');
-        destTeste.setLinha(2);
+        destTeste = new Posicao('b', 2, 'd', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'c', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('e');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'e', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
@@ -648,15 +587,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em L:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'f', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'c', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
@@ -665,15 +602,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em diagonal indefinida:");
-        destTeste.setColuna('g');
-        destTeste.setLinha(6);
+        destTeste = new Posicao('b', 6, 'g', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(6);
+        destTeste = new Posicao('b', 6, 'a', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
@@ -682,15 +617,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em horzintal/vertical indefinida:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'f', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
             System.out.println("Rei nao se move");
         }
-        destTeste.setColuna('d');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'd', false);
         if(reiB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rei se move");
         } else {
@@ -702,15 +635,13 @@ public class Teste {
         System.out.println("Testes Rainha:");
 
         System.out.println("Teste movimento em horzintal/vertical indefinida:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(3);
+        destTeste = new Posicao('b', 3, 'f', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
             System.out.println("Rainha nao se move");
         }
-        destTeste.setColuna('d');
-        destTeste.setLinha(5);
+        destTeste = new Posicao('b', 5, 'd', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
@@ -719,15 +650,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em diagonal indefinida:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'f', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
             System.out.println("Rainha nao se move");
         }
-        destTeste.setColuna('a');
-        destTeste.setLinha(6);
+        destTeste = new Posicao('b', 6, 'a', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
@@ -736,15 +665,13 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento em L:");
-        destTeste.setColuna('f');
-        destTeste.setLinha(4);
+        destTeste = new Posicao('b', 4, 'f', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
             System.out.println("Rainha nao se move");
         }
-        destTeste.setColuna('c');
-        destTeste.setLinha(1);
+        destTeste = new Posicao('b', 1, 'c', false);
         if(rainhaB.checaMovimento(origTeste, destTeste)) {
             System.out.println("Rainha se move");
         } else {
