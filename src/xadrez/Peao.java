@@ -26,6 +26,10 @@ public class Peao {
     }
   
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
+        // Se destino for a posicao de origem retorne falso
+        if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
+            return false;
+        }
 
         if (this.getCor() == 'b') {
             // Se esta na mesma coluna e a diferenca entre as linhas for menor ou igual a 2 e maior que 0,

@@ -26,6 +26,10 @@ public class Torre {
     }
 
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
+        // Se destino for a posicao de origem retorne falso
+        if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
+            return false;
+        }
 
         // Se a linha for igual mas a coluna diferente, eh um movimento valido, pois se move em sua linha.
         if (pos_orig.getLinha() == pos_dest.getLinha() && pos_orig.getColuna() != pos_dest.getColuna()) {

@@ -26,6 +26,10 @@ public class Cavalo {
     }
 
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
+        // Se destino for a posicao de origem retorne falso
+        if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
+            return false;
+        }
         // Se a diferenca entre a linha for 3, a diferenca entre coluna tem que ser 1
         if (Math.abs(pos_dest.getLinha() - pos_orig.getLinha()) == 2 && Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 1) {
             return true;
