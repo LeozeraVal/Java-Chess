@@ -22,8 +22,8 @@ public class Teste {
         Peao peaoP = new Peao('p');
         peaoP.desenho();
         System.out.print(" - ");
-        Rainha rainhaP = new Rainha('p');
-        rainhaP.desenho();
+        Dama damaP = new Dama('p');
+        damaP.desenho();
         System.out.print(" - ");
         Rei reiP = new Rei('p');
         reiP.desenho();
@@ -43,8 +43,8 @@ public class Teste {
         Peao peaoB = new Peao('b');
         peaoB.desenho();
         System.out.print(" - ");
-        Rainha rainhaB = new Rainha('b');
-        rainhaB.desenho();
+        Dama damaB = new Dama('b');
+        damaB.desenho();
         System.out.print(" - ");
         Rei reiB = new Rei('b');
         reiB.desenho();
@@ -252,16 +252,16 @@ public class Teste {
 
         System.out.println("############################");
 
-        System.out.println("Testes Rainha:");
+        System.out.println("Testes Dama:");
 
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
                 destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
-                    rainhaP.desenho();
+                    damaP.desenho();
                     System.out.print(" ");
-                } else if (rainhaP.checaMovimento(origTeste, destTeste)) {
+                } else if (damaP.checaMovimento(origTeste, destTeste)) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");

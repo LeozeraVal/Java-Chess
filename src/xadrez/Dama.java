@@ -1,10 +1,10 @@
 package xadrez;
 
-public class Rainha {
+public class Dama {
 
     private char cor;
 
-    public Rainha(char cor) {
+    public Dama(char cor) {
         if (cor == 'p' || cor == 'b') {
             this.cor = cor;
         } else {
@@ -32,7 +32,7 @@ public class Rainha {
             return false;
         }
         
-        // Uma rainha tem sua checagem de movimento como uma juncao das checagens da torre e do bispo, portanto reutilizamos o codigo.
+        // Uma dama tem sua checagem de movimento como uma juncao das checagens da torre e do bispo, portanto reutilizamos o codigo.
         
         if (pos_orig.getLinha() == pos_dest.getLinha() && pos_orig.getColuna() != pos_dest.getColuna()) {
             return true;
