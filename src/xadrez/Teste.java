@@ -124,7 +124,8 @@ public class Teste {
         Posicao destTeste = new Posicao('b', 3, 'b', false);
         
         System.out.println("Testes Peao:");
-        System.out.println("Branco:");
+        System.out.println("Branco Posicao Origem:");
+        origTeste = new Posicao('p', 2, 'd', false);
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
@@ -143,7 +144,48 @@ public class Teste {
         System.out.println("     | | | | | | | |");
         System.out.println("     A B C D E F G H");
 
-        System.out.println("Preto:");
+        origTeste = new Posicao('p', 4, 'd', false);
+        System.out.println("Branco Posicao Arbitraria:");
+        for (int linha = 7; linha >= 0; linha--) {
+            System.out.print(linha+1 + " -- ");
+            for (int coluna = 0; coluna < 8; coluna++) {
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
+                    peaoB.desenho();
+                    System.out.print(" ");
+                } else if (peaoB.checaMovimento(origTeste, destTeste)) {
+                    System.out.print('\u2713' + " ");
+                } else {
+                    System.out.print('\u2717' + " ");
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("     | | | | | | | |");
+        System.out.println("     A B C D E F G H");
+
+        System.out.println("Preto Posicao Origem:");
+        origTeste = new Posicao('p', 7, 'd', false);
+        for (int linha = 7; linha >= 0; linha--) {
+            System.out.print(linha+1 + " -- ");
+            for (int coluna = 0; coluna < 8; coluna++) {
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
+                    peaoP.desenho();
+                    System.out.print(" ");
+                } else if (peaoP.checaMovimento(origTeste, destTeste)) {
+                    System.out.print('\u2713' + " ");
+                } else {
+                    System.out.print('\u2717' + " ");
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("     | | | | | | | |");
+        System.out.println("     A B C D E F G H");
+
+        origTeste = new Posicao('p', 4, 'd', false);
+        System.out.println("Preto Posicao Arbitraria:");
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {

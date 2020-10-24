@@ -32,36 +32,40 @@ public class Peao {
         }
 
         if (this.getCor() == 'b') {
-            // Se esta na mesma coluna e a diferenca entre as linhas for menor ou igual a 2 e maior que 0,
-            // O movimento eh valido como movimento para frente(brancas) ou como movimento de inicio.
-            if (pos_dest.getColuna() == pos_orig.getColuna()) {
-                if (pos_dest.getLinha() - pos_orig.getLinha() <= 2 && pos_dest.getLinha() - pos_orig.getLinha() > 0) {
-                    return true;
+            // Se esta na linha 2, tem como destino uma posicao 2 linhas para frente e na mesma coluna, eh
+            // considerado movimento de 2 casas do peao branco na posicao de inicio portanto true.
+            if (pos_orig.getLinha() == 2) {
+                if (pos_dest.getColuna() == pos_orig.getColuna()) {
+                    if (pos_dest.getLinha() - pos_orig.getLinha() == 2) {
+                        return true;
+                    }
                 }
-                return false;
             }
-            // Se a diferenca entre as colunas e a diferenca entre as linhas for 1,
-            // o peao esta efetuando movimento de comer para frente(brancas) portanto eh valido.
+            // Se a diferenca entre as linhas for 1 e a diferenca entre as colunas for 0 ou 1,
+            // o peao esta efetuando movimento de comer para frente(brancas) ou andar uma para frente.
             if (pos_dest.getLinha() - pos_orig.getLinha() == 1) {
-                if (Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 1) {
+                if (Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 1 ||
+                     Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 0) {
                     return true;
                 }
                 return false;
             }
             return false;
         } else {
-            // Se esta na mesma coluna e a diferenca entre as linhas for maior ou igual a -2 e menor que 0,
-            // O movimento eh valido como movimento para tras (pretas) ou como movimento de inicio.
-            if (pos_dest.getColuna() == pos_orig.getColuna()) {
-                if (pos_dest.getLinha() - pos_orig.getLinha() >= -2 && pos_dest.getLinha() - pos_orig.getLinha() < 0) {
-                    return true;
+            // Se esta na linha 7, tem como destino uma posicao 2 linhas para tras e na mesma coluna, eh
+            // considerado movimento de 2 casas do peao preto na posicao de inicio portanto true.
+            if (pos_orig.getLinha() == 7) {
+                if (pos_dest.getColuna() == pos_orig.getColuna()) {
+                    if (pos_dest.getLinha() - pos_orig.getLinha() == -2) {
+                        return true;
+                    }
                 }
-                return false;
             }
-            // Se a diferenca entre as coluna for 1 e das linhas -1
-            // o peao esta efetuando movimento de comer para tras(pretas) portanto eh valido.
+            // Se a diferenca entre as linhas for -1 e das colunas 1 ou 0,
+            // o peao esta efetuando movimento de comer para tras(pretas) ou andar uma para tras portanto eh valido.
             if (pos_dest.getLinha() - pos_orig.getLinha() == -1) {
-                if (Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 1) {
+                if (Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 1 ||
+                     Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) == 0) {
                     return true;
                 }
                 return false;
