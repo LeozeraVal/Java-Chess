@@ -1,22 +1,13 @@
 package xadrez;
 
-public class Cavalo {
-
-    private char cor;
+public class Cavalo extends Peca {
 
     public Cavalo(char cor) {
-        if (cor == 'p' || cor == 'b') {
-            this.cor = cor;
-        } else {
-            System.out.println("Uma peca tem que ser preta ou branca.");
-        }
-    }
-
-    public char getCor() {
-        return this.cor;
+        super(cor);
     }
 
     // Usa unicode para printar seu simbolo.
+    @Override
     public void desenho() {
         if (this.getCor() == 'b') {
             System.out.print('\u2658');
@@ -24,7 +15,7 @@ public class Cavalo {
             System.out.print('\u265E');
         }
     }
-
+    @Override
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
         // Se destino for a posicao de origem retorne falso
         if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {

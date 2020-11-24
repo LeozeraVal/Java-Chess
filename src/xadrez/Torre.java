@@ -1,22 +1,13 @@
 package xadrez;
 
-public class Torre {
-
-    private char cor;
+public class Torre extends Peca {
 
     public Torre(char cor) {
-        if (cor == 'p' || cor == 'b') {
-            this.cor = cor;
-        } else {
-            System.out.println("Uma peca tem que ser preta ou branca.");
-        }
-    }
-
-    public char getCor() {
-        return this.cor;
+        super(cor);
     }
 
     // Usa unicode para printar seu simbolo.
+    @Override
     public void desenho() {
         if (this.getCor() == 'b') {
             System.out.print('\u2656');
@@ -25,6 +16,7 @@ public class Torre {
         }
     }
 
+    @Override
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
         // Se destino for a posicao de origem retorne falso
         if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {

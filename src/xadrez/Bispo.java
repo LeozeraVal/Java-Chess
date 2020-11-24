@@ -1,21 +1,13 @@
 package xadrez;
 
-public class Bispo {
-    private char cor;
+public class Bispo extends Peca {
 
     public Bispo(char cor) {
-        if (cor == 'p' || cor == 'b') {
-            this.cor = cor;
-        } else {
-            System.out.println("Uma peca tem que ser preta ou branca.");
-        }
-    }
-
-    public char getCor() {
-        return this.cor;
+        super(cor);
     }
 
     // Usa unicode para printar seu simbolo.
+    @Override
     public void desenho() {
         if (this.getCor() == 'b') {
             System.out.print('\u2657');
@@ -24,7 +16,7 @@ public class Bispo {
         }
     }
 
-
+    @Override
     public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
         // Se estiver na mesma posicao entraria como valido, portanto isolamos este caso.
         if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
