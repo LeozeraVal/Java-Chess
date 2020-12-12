@@ -17,13 +17,13 @@ public class Rei extends Peca {
     }
 
     @Override
-    public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
+    public boolean checaMovimento(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest) {
         // Se destino for a posicao de origem retorne falso
-        if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
+        if (linha_dest == linha_orig && coluna_dest == coluna_orig) {
             return false;
         }
         // Se a diferenca entre as linhas E a diferenca entre as colunas for menor ou igual a 1, o movimento eh valido, cobre todos os casos
-        if (Math.abs(pos_dest.getLinha() - pos_orig.getLinha()) <= 1 && Math.abs(pos_dest.getColuna() - pos_orig.getColuna()) <= 1) {
+        if (Math.abs(linha_dest - linha_orig) <= 1 && Math.abs(coluna_dest - coluna_orig) <= 1) {
             return true;
         }
 

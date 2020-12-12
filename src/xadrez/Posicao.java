@@ -43,7 +43,7 @@ public class Posicao {
         return this.linha;
     }
 
-    public int getColuna() {
+    public char getColuna() {
         return this.coluna;
     }
 

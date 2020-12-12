@@ -133,7 +133,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoB.desenho();
                     System.out.print(" ");
-                } else if (peaoB.checaMovimento(origTeste, destTeste)) {
+                } else if (peaoB.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -153,7 +153,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoB.desenho();
                     System.out.print(" ");
-                } else if (peaoB.checaMovimento(origTeste, destTeste)) {
+                } else if (peaoB.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -173,7 +173,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoP.desenho();
                     System.out.print(" ");
-                } else if (peaoP.checaMovimento(origTeste, destTeste)) {
+                } else if (peaoP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -193,7 +193,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoP.desenho();
                     System.out.print(" ");
-                } else if (peaoP.checaMovimento(origTeste, destTeste)) {
+                } else if (peaoP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -215,7 +215,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     bispoP.desenho();
                     System.out.print(" ");
-                } else if (bispoP.checaMovimento(origTeste, destTeste)) {
+                } else if (bispoP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -237,7 +237,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     cavaloP.desenho();
                     System.out.print(" ");
-                } else if (cavaloP.checaMovimento(origTeste, destTeste)) {
+                } else if (cavaloP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -259,7 +259,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     torreP.desenho();
                     System.out.print(" ");
-                } else if (torreP.checaMovimento(origTeste, destTeste)) {
+                } else if (torreP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -281,7 +281,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     reiP.desenho();
                     System.out.print(" ");
-                } else if (reiP.checaMovimento(origTeste, destTeste)) {
+                } else if (reiP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");
@@ -303,7 +303,7 @@ public class Teste {
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     damaP.desenho();
                     System.out.print(" ");
-                } else if (damaP.checaMovimento(origTeste, destTeste)) {
+                } else if (damaP.checaMovimento(origTeste.getLinha(), origTeste.getColuna(), destTeste.getLinha(), destTeste.getColuna())) {
                     System.out.print('\u2713' + " ");
                 } else {
                     System.out.print('\u2717' + " ");

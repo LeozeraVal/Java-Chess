@@ -17,19 +17,19 @@ public class Torre extends Peca {
     }
 
     @Override
-    public boolean checaMovimento(Posicao pos_orig, Posicao pos_dest) {
+    public boolean checaMovimento(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest) {
         // Se destino for a posicao de origem retorne falso
-        if (pos_dest.getLinha() == pos_orig.getLinha() && pos_dest.getColuna() == pos_orig.getColuna()) {
+        if (linha_dest == linha_orig && coluna_dest == coluna_orig) {
             return false;
         }
 
         // Se a linha for igual mas a coluna diferente, eh um movimento valido, pois se move em sua linha.
-        if (pos_orig.getLinha() == pos_dest.getLinha() && pos_orig.getColuna() != pos_dest.getColuna()) {
+        if (linha_orig == linha_dest && coluna_orig != coluna_dest) {
             return true;
         }
 
         // Se a coluna for igual mas a linha diferente, eh um movimento valido, pois se move em sua coluna.
-        if (pos_orig.getLinha() != pos_dest.getLinha() && pos_orig.getColuna() == pos_dest.getColuna()) {
+        if (linha_orig != linha_dest && coluna_orig == coluna_dest) {
             return true;
         }
 

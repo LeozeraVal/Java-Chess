@@ -18,5 +18,5 @@ public abstract class Peca {
 
     public abstract void desenho();
 
-    public abstract boolean checaMovimento(Posicao pos_orig, Posicao pos_dest);
+    public abstract boolean checaMovimento(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest);
 }
