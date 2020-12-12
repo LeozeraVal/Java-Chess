@@ -1,14 +1,21 @@
 package xadrez;
 
+/**
+ * Classe filha de Peca da peca Torre.
+ * @author Leonardo Valerio
+ */
 public class Torre extends Peca {
 
+    /**
+     * @param cor Indica qual a cor da Torre a ser criada.
+     */
     public Torre(char cor) {
         super(cor);
     }
 
-    // Usa unicode para printar seu simbolo.
     @Override
     public void desenho() {
+        // Usa unicode para printar seu simbolo.
         if (this.getCor() == 'b') {
             System.out.print('\u2656');
         } else if (this.getCor() == 'p') {

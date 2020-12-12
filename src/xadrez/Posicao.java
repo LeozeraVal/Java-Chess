@@ -1,5 +1,9 @@
 package xadrez;
 
+/**
+ * Classe que compoe o tabuleiro, eh responsavel por saber sua cor, linha, coluna, se tem uma peca e qual peca eh.
+ * @author Leonardo Valerio
+ */
 public class Posicao {
     // possui uma cor, linha, coluna e no momento apenas uma booleana que simboliza se tem peca ou nao,
     // futuramente tera tambem uma peca.
@@ -9,6 +13,13 @@ public class Posicao {
     private boolean tem_peca;
 
 
+    /**
+     * Construtor de uma Posicao.
+     * @param cor (char) Cor da Posicao.
+     * @param linha (int) Linha da Posicao.
+     * @param coluna (char) Coluna da Posicao.
+     * @param tem_peca (boolean) Representa se uma posicao possui peca.
+     */
     public Posicao(char cor, int linha, char coluna, boolean tem_peca) {
         //Checa consistencia da cor
         if (cor != 'b' && cor != 'p') {

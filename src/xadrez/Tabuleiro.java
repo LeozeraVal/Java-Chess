@@ -1,5 +1,9 @@
 package xadrez;
 
+/**
+ * Classe Tabulerio que possui um conjunto de posicoes e eh responsavel por checar seus limites.
+ * @author Leonardo Valerio
+ */
 public class Tabuleiro {
     // Cria um vetor bidimencional para guardar as posicoes.
     private Posicao[][] posicoes = new Posicao[8][8];

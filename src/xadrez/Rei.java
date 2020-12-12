@@ -1,14 +1,21 @@
 package xadrez;
 
+/**
+ * Classe filha de Peca da peca Rei.
+ * @author Leonardo Valerio
+ */
 public class Rei extends Peca {
 
+    /**
+     * @param cor Indica qual a cor do Rei a ser criado.
+     */
     public Rei(char cor) {
         super(cor);
     }
 
-    // Usa unicode para printar seu simbolo.
     @Override
     public void desenho() {
+        // Usa unicode para printar seu simbolo.
         if (this.getCor() == 'b') {
             System.out.print('\u2654');
         } else {

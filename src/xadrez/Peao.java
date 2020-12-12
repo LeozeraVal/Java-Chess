@@ -1,14 +1,21 @@
 package xadrez;
 
+/**
+ * Classe filha de Peca da peca Peao.
+ * @author Leonardo Valerio
+ */
 public class Peao extends Peca {
 
+    /**
+     * @param cor Indica qual a cor do Peao a ser criado.
+     */
     public Peao(char cor) {
         super(cor);
     }
 
-    // Usa unicode para printar seu simbolo.
     @Override
     public void desenho() {
+        // Usa unicode para printar seu simbolo.
         if (this.getCor() == 'b') {
             System.out.print('\u2659');
         } else {

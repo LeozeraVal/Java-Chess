@@ -1,5 +1,9 @@
 package xadrez;
 
+/**
+ * Classe Responsavel pela gerencia do jogo, tabuleiro e jogadores.
+ * @author Leonardo Valerio.
+ */
 public class Jogo {
 
     // Cria um tabuleiro e possui uma variavel turn que representa de quem eh a vez no momento,

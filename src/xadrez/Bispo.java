@@ -1,14 +1,21 @@
 package xadrez;
 
+/**
+ * Classe filha de Peca da peca Bispo.
+ * @author Leonardo Valerio
+ */
 public class Bispo extends Peca {
 
+    /**
+     * @param cor Indica qual a cor do Bispo a ser criado.
+     */
     public Bispo(char cor) {
         super(cor);
     }
 
-    // Usa unicode para printar seu simbolo.
     @Override
     public void desenho() {
+        // Usa unicode para printar seu simbolo.
         if (this.getCor() == 'b') {
             System.out.print('\u2657');
         } else {
