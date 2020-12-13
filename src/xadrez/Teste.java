@@ -7,6 +7,10 @@ public class Teste {
         System.out.println("Teste de Tabuleiro:");
         Tabuleiro tabuleiro_test = new Tabuleiro();
         tabuleiro_test.printTabuleiro();
+
+        System.out.println("Teste de Tabuleiro Populado:");
+        tabuleiro_test.populaNovoTabuleiro();
+        tabuleiro_test.printTabuleiro();
         System.out.println("############################");
         
         System.out.println("Teste de pecas pretas:");
@@ -56,24 +60,24 @@ public class Teste {
         System.out.println("Testes de criacao de posicao:");
 
         System.out.println("Testes criacao com linha invalida:");
-        Posicao testpos = new Posicao('b', 136, 'f', false);
-        testpos = new Posicao('b', 0, 'f', false);
+        Posicao testpos = new Posicao('b', 136, 'f');
+        testpos = new Posicao('b', 0, 'f');
         System.out.println("############################");
 
         System.out.println("Testes criacao com coluna invalida:");
-        testpos = new Posicao('b', 5, 'z', false);
-        testpos = new Posicao('b', 0, '-', false);
+        testpos = new Posicao('b', 5, 'z');
+        testpos = new Posicao('b', 0, '-');
         System.out.println("############################");
 
         System.out.println("Testes criacao com cor invalida:");
-        testpos = new Posicao('a', 5, 'f', false);
-        testpos = new Posicao('c', 0, 'f', false);
+        testpos = new Posicao('a', 5, 'f');
+        testpos = new Posicao('c', 0, 'f');
         System.out.println("############################");
 
         System.out.println("Testes criacao valida:");
-        testpos = new Posicao('b', 5, 'f', false);
+        testpos = new Posicao('b', 5, 'f');
         System.out.println(testpos);
-        testpos = new Posicao('b', 1, 'g', false);
+        testpos = new Posicao('b', 1, 'g');
         System.out.println(testpos);
         System.out.println("############################");
 
@@ -107,29 +111,29 @@ public class Teste {
         System.out.println("############################");
 
         System.out.println("Teste movimento valido:");
-        jogoTeste.mover(5, 'f', 4, 'g');
+        jogoTeste.mover(2, 'a', 4, 'a');
         System.out.println("############################");
 
 
         System.out.println("Teste status do tabuleiro:");
         jogoTeste.status();
-        jogoTeste.mover(4, 'f', 2, 'a');
+        jogoTeste.mover(1, 'a', 5, 'a');
         jogoTeste.status();
         System.out.println("############################");
 
         System.out.println("############################");
 
         System.out.println("Teste de pecas especificas:");
-        Posicao origTeste = new Posicao('p', 4, 'd', false);
-        Posicao destTeste = new Posicao('b', 3, 'b', false);
+        Posicao origTeste = new Posicao('p', 4, 'd');
+        Posicao destTeste = new Posicao('b', 3, 'b');
         
         System.out.println("Testes Peao:");
         System.out.println("Branco Posicao Origem:");
-        origTeste = new Posicao('p', 2, 'd', false);
+        origTeste = new Posicao('p', 2, 'd');
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoB.desenho();
                     System.out.print(" ");
@@ -144,12 +148,12 @@ public class Teste {
         System.out.println("     | | | | | | | |");
         System.out.println("     A B C D E F G H");
 
-        origTeste = new Posicao('p', 4, 'd', false);
+        origTeste = new Posicao('p', 4, 'd');
         System.out.println("Branco Posicao Arbitraria:");
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoB.desenho();
                     System.out.print(" ");
@@ -165,11 +169,11 @@ public class Teste {
         System.out.println("     A B C D E F G H");
 
         System.out.println("Preto Posicao Origem:");
-        origTeste = new Posicao('p', 7, 'd', false);
+        origTeste = new Posicao('p', 7, 'd');
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoP.desenho();
                     System.out.print(" ");
@@ -184,12 +188,12 @@ public class Teste {
         System.out.println("     | | | | | | | |");
         System.out.println("     A B C D E F G H");
 
-        origTeste = new Posicao('p', 4, 'd', false);
+        origTeste = new Posicao('p', 4, 'd');
         System.out.println("Preto Posicao Arbitraria:");
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     peaoP.desenho();
                     System.out.print(" ");
@@ -211,7 +215,7 @@ public class Teste {
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     bispoP.desenho();
                     System.out.print(" ");
@@ -233,7 +237,7 @@ public class Teste {
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     cavaloP.desenho();
                     System.out.print(" ");
@@ -255,7 +259,7 @@ public class Teste {
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     torreP.desenho();
                     System.out.print(" ");
@@ -277,7 +281,7 @@ public class Teste {
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     reiP.desenho();
                     System.out.print(" ");
@@ -299,7 +303,7 @@ public class Teste {
         for (int linha = 7; linha >= 0; linha--) {
             System.out.print(linha+1 + " -- ");
             for (int coluna = 0; coluna < 8; coluna++) {
-                destTeste = new Posicao('b', linha+1, (char)(coluna+97), false);
+                destTeste = new Posicao('b', linha+1, (char)(coluna+97));
                 if (destTeste.getLinha() == origTeste.getLinha() && destTeste.getColuna() == origTeste.getColuna()) {
                     damaP.desenho();
                     System.out.print(" ");

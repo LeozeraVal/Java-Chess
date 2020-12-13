@@ -6,10 +6,15 @@ package xadrez;
  */
 public class Jogo {
 
-    // Cria um tabuleiro e possui uma variavel turn que representa de quem eh a vez no momento,
+    // Possui um tabuleiro e possui uma variavel turn que representa de quem eh a vez no momento,
     // comeca com brancos.
-    private Tabuleiro tabuleiro = new Tabuleiro();
+    private Tabuleiro tabuleiro;
     private char turn = 'b';
+
+    public Jogo() {
+        this.tabuleiro = new Tabuleiro();
+        this.tabuleiro.populaNovoTabuleiro();
+    }
 
     // Passa para o tabuleiro os argumentos do movimento, se o tabuleiro efetuar o movimento, passa a vez.
     // Se nao for, apenas comunica que ainda eh a vez do jogador.

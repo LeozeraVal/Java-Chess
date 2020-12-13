@@ -5,22 +5,41 @@ package xadrez;
  * @author Leonardo Valerio
  */
 public class Posicao {
-    // possui uma cor, linha, coluna e no momento apenas uma booleana que simboliza se tem peca ou nao,
-    // futuramente tera tambem uma peca.
+    
+    /**
+     * Cor da Posicao.
+     */
     private char cor;
+
+    /**
+     * Linha da Posicao.
+     */
     private int linha;
+
+    /**
+     * Coluna da Posicao.
+     */
     private char coluna;
+
+    /**
+     * Booleana responsavel por dizer se a posicao tem uma Peca.
+     */
     private boolean tem_peca;
+
+    /**
+     * Atributo que aponta para um objeto Peca. Simboliza qual Peca ocupa esta Posicao.
+     */
+    private Peca peca;
 
 
     /**
-     * Construtor de uma Posicao.
+     * Construtor com Peca de uma Posicao.
      * @param cor (char) Cor da Posicao.
      * @param linha (int) Linha da Posicao.
      * @param coluna (char) Coluna da Posicao.
-     * @param tem_peca (boolean) Representa se uma posicao possui peca.
+     * @param peca (Peca) Representa qual Peca ocupa esta Posicao.
      */
-    public Posicao(char cor, int linha, char coluna, boolean tem_peca) {
+    public Posicao(char cor, int linha, char coluna, Peca peca) {
         //Checa consistencia da cor
         if (cor != 'b' && cor != 'p') {
             System.out.println("> ERRO! " + cor + " nao eh uma cor valida!");
@@ -42,7 +61,43 @@ public class Posicao {
         } else {
             this.coluna = coluna;
         }
-        this.tem_peca = tem_peca;
+
+        // Ja que chamamos o construtor com uma peca, populamos os atributos tem_peca e peca.
+        this.tem_peca = true;
+        this.peca = peca;
+    }
+
+    /**
+     * Construtor sem Peca de uma Posicao.
+     * @param cor (char) Cor da Posicao.
+     * @param linha (int) Linha da Posicao.
+     * @param coluna (char) Coluna da Posicao.
+     */
+    public Posicao(char cor, int linha, char coluna) {
+        //Checa consistencia da cor
+        if (cor != 'b' && cor != 'p') {
+            System.out.println("> ERRO! " + cor + " nao eh uma cor valida!");
+            return;
+        } else {
+            this.cor = cor;
+        }
+        //Checa consistencia da linha
+        if (linha > 8 || linha < 1) {
+            System.out.println("> ERRO! " + linha + " nao eh uma linha valida!");
+            return;
+        } else {
+            this.linha = linha;
+        }
+        //Checa consistencia da coluna
+        if (coluna > 'h' || coluna < 'a') {
+            System.out.println("> ERRO! " + coluna + " nao eh uma coluna valida!");
+            return;
+        } else {
+            this.coluna = coluna;
+        }
+
+        // Ja que chamamos o construtor com uma peca, populamos os atributos tem_peca e peca.
+        this.tem_peca = false;
     }
 
 
@@ -62,9 +117,35 @@ public class Posicao {
         return this.tem_peca;
     }
 
-    //Usado quando uma peca for retirada desta posicao
-    public void setPeca(boolean tem) {
-        this.tem_peca = tem;
+    public Peca getPeca() {
+        return this.peca;
+    }
+    
+    /**
+     * Usado quando uma peca for colocada nesta posicao
+     * @param peca Peca a ser colocada nesta posicao.
+     */
+    public void colocaPeca(Peca peca) {
+        this.tem_peca = true;
+        this.peca = peca;
         return;
+    }
+
+    /**
+     * Usado quando uma peca for retirada desta Posicao, retorna a peca que tirou.
+     * @return Objeto Peca que foi retirado da Posicao, ou nulo caso a Posicao nao tenha Peca.
+     */
+    public Peca removePeca() {
+        if (this.tem_peca) {
+            // Setamos tem_peca como false e o atributo peca passa a apontar para nulo.
+            // Alem disso criamos uma variavel temp para retornar a Peca que estava nesta Posicao.
+            this.tem_peca = false;
+            Peca temp = this.peca;
+            this.peca = null;
+            return temp;
+        } else {
+            System.out.println("Esta posicao nao possui Peca para ser removida.");
+            return null;
+        }
     }
 }
