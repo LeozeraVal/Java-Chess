@@ -21,31 +21,42 @@ public class Tabuleiro {
         }
     }
 
-    public void populaNovoTabuleiro() {
-        posicoes[0][0].colocaPeca(new Torre('b'));
-        posicoes[0][1].colocaPeca(new Cavalo('b'));
-        posicoes[0][2].colocaPeca(new Bispo('b'));
-        posicoes[0][3].colocaPeca(new Dama('b'));
-        posicoes[0][4].colocaPeca(new Rei('b'));
-        posicoes[0][5].colocaPeca(new Bispo('b'));
-        posicoes[0][6].colocaPeca(new Cavalo('b'));
-        posicoes[0][7].colocaPeca(new Torre('b'));
-
-        for (int i = 0; i < 8; i++) {
-            posicoes[1][i].colocaPeca(new Peao('b'));
+    // Metodo responsavel por popular um tabuleiro com um vetor de pecas, neste caso o metodo
+    // assume que o tabuleiro eh novo e portanto que o vetor pecas tera uma ordem especifica correspondente
+    // a ordem de inicio do jogo.
+    public void populaNovoTabuleiro(Peca[] pecas) {
+        posicoes[0][0].colocaPeca(pecas[0]);
+        posicoes[0][1].colocaPeca(pecas[1]);
+        posicoes[0][2].colocaPeca(pecas[2]);
+        posicoes[0][3].colocaPeca(pecas[3]);
+        posicoes[0][4].colocaPeca(pecas[4]);
+        posicoes[0][5].colocaPeca(pecas[5]);
+        posicoes[0][6].colocaPeca(pecas[6]);
+        posicoes[0][7].colocaPeca(pecas[7]);
+        
+        int i = 0;
+        int j = 8;
+        while (i < 8 && j < 16) {
+            posicoes[1][i].colocaPeca(pecas[j]);
+            i++;
+            j++;
         }
 
-        posicoes[7][0].colocaPeca(new Torre('p'));
-        posicoes[7][1].colocaPeca(new Cavalo('p'));
-        posicoes[7][2].colocaPeca(new Bispo('p'));
-        posicoes[7][3].colocaPeca(new Dama('p'));
-        posicoes[7][4].colocaPeca(new Rei('p'));
-        posicoes[7][5].colocaPeca(new Bispo('p'));
-        posicoes[7][6].colocaPeca(new Cavalo('p'));
-        posicoes[7][7].colocaPeca(new Torre('p'));
+        posicoes[7][0].colocaPeca(pecas[16]);
+        posicoes[7][1].colocaPeca(pecas[17]);
+        posicoes[7][2].colocaPeca(pecas[18]);
+        posicoes[7][3].colocaPeca(pecas[19]);
+        posicoes[7][4].colocaPeca(pecas[20]);
+        posicoes[7][5].colocaPeca(pecas[21]);
+        posicoes[7][6].colocaPeca(pecas[22]);
+        posicoes[7][7].colocaPeca(pecas[23]);
 
-        for (int i = 0; i < 8; i++) {
-            posicoes[6][i].colocaPeca(new Peao('p'));
+        i = 0;
+        j = 24;
+        while (i < 8 && j < 32) {
+            posicoes[6][i].colocaPeca(pecas[j]);
+            i++;
+            j++;
         }
         
     }
