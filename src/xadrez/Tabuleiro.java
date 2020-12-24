@@ -63,7 +63,7 @@ public class Tabuleiro {
 
     // Checa o destino e origem em todas as dimensoes para encontrar inconsistencias,
     // se nao encontrou nenhuma, o movimento sera efetuado.
-    public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest) {
+    public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor, Peca temp) {
 
         // Primeiro chama o metodo que checa os limites deste movimento no tabuleiro. Caso
         // O metodo retorne false, retornamos false tambem pois nao eh um movimento valido.
@@ -74,6 +74,12 @@ public class Tabuleiro {
         // Segundamente checa se existe Peca na origem.
         if (!this.posicoes[linha_orig-1][coluna_orig-97].temPeca()) {
             System.out.println("Nao existe uma Peca na origem deste movimento");
+            return false;
+        }
+
+        // Terceiramente checa a Peca da origem eh da cor do jogador que comandou o movimento
+        if (!(this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getCor() == cor)) {
+            System.out.println("Voce nao pode mover uma peca que nao eh sua.");
             return false;
         }
 
@@ -120,7 +126,7 @@ public class Tabuleiro {
                 System.out.println("A peca de Destino tem a mesma cor que a Peca de Origem");
                 return false;
             }
-            this.posicoes[linha_dest-1][coluna_dest-97].removePeca();
+            temp = this.posicoes[linha_dest-1][coluna_dest-97].removePeca();
         }
 
         // Enfim, colocamos a Peca que esta presenta na origem no destino e simultaneamente retiramos da origem.
