@@ -63,8 +63,41 @@ public class Tabuleiro {
 
     // Checa o destino e origem em todas as dimensoes para encontrar inconsistencias,
     // se nao encontrou nenhuma, o movimento sera efetuado.
-    public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor, Peca temp) {
+    public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
 
+        // chamamos a funcao checaMovimentoGlobal que engloba todas as checagens de movimento desde os limites do tabuleiro, obstrucoes e movimentacao especifica da peca.
+        if(!checaMovimentoGlobal(linha_orig, coluna_orig, linha_dest, coluna_dest, cor)) {
+            return false;
+        }
+
+        // Caso a posicao de destino tenha uma Peca, ela sera temporariamente comida ou se for uma Peca
+        // da mesma cor que a origem retornamos false.
+        Peca temp = null;
+        if (this.posicoes[linha_dest-1][coluna_dest-97].temPeca()) {
+            if (this.posicoes[linha_dest-1][coluna_dest-97].getPeca().getCor() == cor) {
+                System.out.println("A peca de Destino tem a mesma cor que a Peca de Origem");
+                return false;
+            }
+            temp = this.posicoes[linha_dest-1][coluna_dest-97].removePeca();
+        }
+
+        // Enfim, colocamos a Peca que esta presenta na origem no destino e simultaneamente retiramos da origem.
+        this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(this.posicoes[linha_orig-1][coluna_orig-97].removePeca());
+
+        // Entao checamos se o movimento colocou o rei aliado em cheque
+        if(cheque(cor)) {
+            // Se sim, revertemos o movimento
+            this.posicoes[linha_orig-1][coluna_orig-97].colocaPeca(this.posicoes[linha_dest-1][coluna_dest-97].removePeca());
+            // E se existia uma peca na posicao de destino a colocamos de volta
+            this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(temp);
+            System.out.println("Este movimento coloca seu Rei em cheque, portanto eh invalido");
+            return false;
+        }
+
+        return true;        
+    }
+
+    private boolean checaMovimentoGlobal(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
         // Primeiro chama o metodo que checa os limites deste movimento no tabuleiro. Caso
         // O metodo retorne false, retornamos false tambem pois nao eh um movimento valido.
         if(!this.checaLimiteMovimento(linha_orig, coluna_orig, linha_dest, coluna_dest)) {
@@ -91,7 +124,7 @@ public class Tabuleiro {
 
         // Depois chama o metodo que checa o caminho deste movimento e se tem alguma Peca o obstruindo.
         // Nao fazemos esta checagem para o Cavalo pq ele pula mt bem.
-        if (!this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("Cavalo")) {
+        if (!this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("xadrez.Cavalo")) {
             if (!this.checaCaminhoMovimento(linha_orig, coluna_orig, linha_dest, coluna_dest)) {
                 System.out.println("O caminho deste movimento esta obstruido.");
                 return false;
@@ -102,7 +135,7 @@ public class Tabuleiro {
         // e so pode se mover para frente caso nao existe uma peca no seu destino.
         // Por ja ter checado que o movimento eh valido pela peca, sabemos que o Peao ou esta se movendo uma casa nas suas diagonais ou
         // para frente
-        if (this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("Peao")) {
+        if (this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("xadrez.Peao")) {
             
             // Caso o movimento seja frontal e no seu destino tenha uma Peca, retorna false, pois o Peao nao come para frente.
             if (coluna_dest == coluna_orig && this.posicoes[linha_dest-1][coluna_dest-97].temPeca()) {
@@ -116,9 +149,6 @@ public class Tabuleiro {
             }
         }
 
-        // Enfim, como o movimento esta nos limites do tabuleiro, eh valido pela Peca e seu caminho esta livre,
-        // basta apenas checar se a Peca no destino do movimento eh da mesma cor que a Peca de origem.
-
         // Caso a posicao de destino tenha uma Peca, ela sera comida ou se for uma Peca
         // da mesma cor que a origem retornamos false.
         if (this.posicoes[linha_dest-1][coluna_dest-97].temPeca()) {
@@ -126,13 +156,10 @@ public class Tabuleiro {
                 System.out.println("A peca de Destino tem a mesma cor que a Peca de Origem");
                 return false;
             }
-            temp = this.posicoes[linha_dest-1][coluna_dest-97].removePeca();
         }
 
-        // Enfim, colocamos a Peca que esta presenta na origem no destino e simultaneamente retiramos da origem.
-        this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(this.posicoes[linha_orig-1][coluna_orig-97].removePeca());
-
-        return true;        
+        // Caso nao tenha retornado false ate agora, o movimento eh considerado valido.
+        return true;
     }
 
     /**
@@ -318,6 +345,152 @@ public class Tabuleiro {
         // Caso nao se configure em nenhum desses tipos de movimento retorna true, pois teoricamente
         // o caminho entre um movimento que tem como destino a sua propria origem nao tem caminho obstruido.
         return true;
+    }
+
+    public boolean cheque(char cor_rei) {
+        // Primeiro acha o rei da cor x
+        Posicao pos_rei = achaRei(cor_rei);
+        int linha_rei = pos_rei.getLinha();
+        char coluna_rei = pos_rei.getColuna();
+
+        char cor_atacante;
+        if (cor_rei == 'b') {
+            cor_atacante = 'p';
+        } else {
+            cor_atacante = 'b';
+        }
+
+        for (int linha = 0; linha < 8; linha++) {
+            for (int coluna = 0; coluna < 8; coluna++) {
+                if (this.posicoes[linha][coluna].temPeca()) {
+                    if (this.posicoes[linha][coluna].getPeca().getCor() == cor_atacante) {
+                        if (checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean cheque(int linha_rei, char coluna_rei, char cor_rei) {
+        char cor_atacante;
+        if (cor_rei == 'b') {
+            cor_atacante = 'p';
+        } else {
+            cor_atacante = 'b';
+        }
+
+        for (int linha = 0; linha < 8; linha++) {
+            for (int coluna = 0; coluna < 8; coluna++) {
+                if (this.posicoes[linha][coluna].temPeca()) {
+                    if (this.posicoes[linha][coluna].getPeca().getCor() == cor_atacante) {
+                        if (checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean chequeMate(char cor_atacante) {
+        
+        char cor_rei_inimigo;
+        if (cor_atacante == 'b') {
+            cor_rei_inimigo = 'p';
+        } else {
+            cor_rei_inimigo = 'b';
+        }
+        
+        Posicao pos_rei = this.achaRei(cor_rei_inimigo);
+        int linha_rei_atual = pos_rei.getLinha();
+        char coluna_rei_atual = pos_rei.getColuna();
+        boolean saida = false;
+
+        // Para cada movimento possivel do Rei.
+        for (int linha_rei_temp = linha_rei_atual-1; linha_rei_temp <= linha_rei_atual+1; linha_rei_temp++) {
+            for (int coluna_rei_temp = coluna_rei_atual-1; coluna_rei_temp <= coluna_rei_atual+1; coluna_rei_temp++) {
+                // Efetua um movimento temporario do Rei para esta posicao, caso seja valido.
+                Peca temp = null;
+                if (!checaMovimentoGlobal(linha_rei_atual, coluna_rei_atual, linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
+                    // Se o movimento nao eh valido, continuamos para o proximo movimento possivel do Rei.
+                    continue;
+                }
+                // Caso o movimento seja valido, armazenamos temporariamente a peca que esta no destino, pois seria hipoteticamente
+                // comida pelo rei
+                temp = posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca();
+                // Movemos o rei pra casa de destino hipotetico
+                posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(posicoes[linha_rei_atual-1][coluna_rei_atual-97].removePeca());
+                // Rodamos a checagem de cheque naquela posicao, se retornar false, temos uma saida do cheque, portanto atribuimos a
+                // booleana saida true.
+                if (!cheque(linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
+                    saida = true;
+                }
+                // Revertemos o movimento temporario que efetuamos para o rei e a peca que foi hipoteticamente comida.
+                posicoes[linha_rei_atual-1][coluna_rei_atual-97].colocaPeca(posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca());
+                posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(temp);
+                // Apos reverter o movimento, se a variavel saida for true, retornamos false para o cheque mate, pois ha uma saida do
+                // cheque.
+                if (saida) {
+                    return false;    
+                }
+            }
+        }
+
+        // Agora fazemos a checagem extensiva de todos os movimentos possiveis das pecas da cor do rei em cheque.
+        for (int linha_atual = 0; linha_atual < 8; linha_atual++) {
+            for (int coluna_atual = 0; coluna_atual < 8; coluna_atual++) {
+                // Se a peca nesta posicao existe e possui a mesma cor do rei 
+                if (posicoes[linha_atual][coluna_atual].temPeca() && posicoes[linha_atual][coluna_atual].getPeca().getCor() == cor_rei_inimigo) {
+                    // Caso for o proprio rei pulamos, (ja checamos todas as possibilidades de movimento do mesmo)
+                    if (posicoes[linha_atual][coluna_atual].getPeca().getClass().getName().equals("xadrez.Rei")) {
+                        continue;
+                    }
+                    // Checamos todos os movimentos possiveis da peca, fazemos um movimento temporario e checamos se ainda existe o cheque.
+                    for (int linha_temp = 0; linha_temp < 8; linha_temp++) {
+                        for (int coluna_temp = 0; coluna_temp < 8; coluna_temp++) {
+                            // Caso o movimento desta peca ate o destino seja possivel.
+                            if (checaMovimentoGlobal(linha_atual+1, (char) (coluna_atual+97), linha_temp+1, (char) (coluna_temp+97), cor_rei_inimigo)) {
+                                // Efetuamos um movimento temporario ate o destino e checamos se o cheque permanece.
+                                Peca temp = posicoes[linha_temp][coluna_temp].removePeca();
+                                posicoes[linha_temp][coluna_temp].colocaPeca(posicoes[linha_atual][coluna_atual].removePeca());
+                                // Caso o rei nao esteja mais em cheque, atribuimos a variavel saida true.
+                                if (!cheque(linha_rei_atual, (char) coluna_rei_atual, cor_rei_inimigo)) {
+                                    saida = true;
+                                }
+                                // Desfazemos o movimento temporario.
+                                posicoes[linha_atual][coluna_atual].colocaPeca(posicoes[linha_temp][coluna_temp].removePeca());
+                                posicoes[linha_temp][coluna_temp].colocaPeca(temp);
+                                if (saida) {
+                                   return false; 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Se chegou aqui, testamos todos os movimentos possiveis e nenhum retirou o rei de cheque, portanto retornamos verdadeiro para cheque mate.
+        return true;
+    }
+
+    public Posicao achaRei(char cor) {
+        for (int linha = 0; linha < 8; linha++) {
+            for (int coluna = 0; coluna < 8; coluna++) {
+                if (this.posicoes[linha][coluna].temPeca()) {
+                    if (this.posicoes[linha][coluna].getPeca().getCor() == cor) {
+                        if(this.posicoes[linha][coluna].getPeca().getClass().getName().equals("xadrez.Rei")) {
+                            return this.posicoes[linha][coluna];
+                        }
+                    }
+                }
+            }
+        }
+        // Nunca chegara aqui
+        return null;
     }
 
     // uma funcao para representar na tela o tabuleiro, ele parte da ultima linha do vetor bidimencional

@@ -22,40 +22,31 @@ public class Jogo {
         this.tabuleiro = new Tabuleiro();
         this.pecas = new Peca[32];
         this.populaNovoJogo(pecas);
-        
-        this.j1 = new Jogador("Kleber", 'b');
+        Scanner ent = new Scanner(System.in);
+        System.out.println("Digite o nome do Jogador 1, comandante das brancas.");
+        this.j1 = new Jogador(ent.nextLine(), 'b');
         for (int i = 0; i < 16; i++) {
             this.j1.adicionaPeca(pecas[i]);
         }
 
-        this.j2 = new Jogador("Gervasio" , 'p');
+        System.out.println("Digite o nome do Jogador 2, comandante das pretas.");
+        this.j2 = new Jogador(ent.nextLine() , 'p');
         for (int i = 16; i < 32; i++) {
             this.j2.adicionaPeca(pecas[i]);
         }
         
         this.tabuleiro.populaNovoTabuleiro(pecas);
         this.turn = j1;
-
-        this.j1.verPecas();
-        this.j2.verPecas();
     }
 
     // Passa para o tabuleiro os argumentos do movimento, se o tabuleiro efetuar o movimento, passa a vez.
     // Se nao for, apenas comunica que ainda eh a vez do jogador.
-    private void mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
-        Peca temp = null;
-        if (this.tabuleiro.mover(linha_orig, coluna_orig, linha_dest, coluna_dest, cor, temp)) {
-            // if (temp != null) {
-            //     if (this.turn == j1) {
-            //         this.j2.removePeca(temp);
-            //     } else {
-            //         this.j1.removePeca(temp);
-            //     }
-            // }
-            this.passarVez();
-        } else {
+    private boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
+        if (!this.tabuleiro.mover(linha_orig, coluna_orig, linha_dest, coluna_dest, cor)) {
             System.out.println("Ainda eh sua vez");
+            return false;
         }
+        return true;
     }
 
     // Apresenta o tabuleiro e diz de quem eh a vez no momento
@@ -113,7 +104,9 @@ public class Jogo {
 
     public void loopJogo() {
         Scanner ent = new Scanner(System.in);
-        while (true) {
+        boolean fim = false;
+        while (!fim) {
+            
             this.status();
             this.turn.verPecas();
             String str = ent.nextLine();
@@ -121,7 +114,33 @@ public class Jogo {
                 System.out.println(this.turn.getNome() + " desitiu.");
                 return;
             }
-            mover(str.charAt(0) - 48, str.charAt(1), str.charAt(3) - 48, str.charAt(4), this.turn.getCor());  
+            if(mover(str.charAt(0) - 48, str.charAt(1), str.charAt(3) - 48, str.charAt(4), this.turn.getCor())) {
+                if (this.turn == j1) {
+                    if (this.tabuleiro.cheque('p')) {
+                        if (this.tabuleiro.chequeMate('b')) {
+                            System.out.println("Cheque Mate! O jogador " + this.j1.getNome() + " ganha por cheque mate!");
+                            fim = true;
+                        } else {
+                            System.out.println("O jogador " + this.j1.getNome() + " colocou " + this.j2.getNome() + " em cheque.");
+                        }
+                    }
+                } else {
+                    if (this.tabuleiro.cheque('b')) {
+                        if (this.tabuleiro.chequeMate('p')) {
+                            System.out.println("Cheque Mate! O jogador " + this.j2.getNome() + " ganha por cheque mate!");
+                            fim = true;
+                        } else {
+                            System.out.println("O jogador " + this.j2.getNome() + " colocou " + this.j1.getNome() + " em cheque.");
+                        }
+                    }
+                }
+                this.passarVez();
+            }
         }
+        this.tabuleiro.printTabuleiro();
+        System.out.println("Obrigado por jogar! Aperte qualquer tecla para sair.");
+        ent.nextLine();
+        ent.close();
+        return;
     }
 }

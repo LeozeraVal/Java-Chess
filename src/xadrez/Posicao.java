@@ -96,8 +96,9 @@ public class Posicao {
             this.coluna = coluna;
         }
 
-        // Ja que chamamos o construtor com uma peca, populamos os atributos tem_peca e peca.
+        // Ja que chamamos o construtor sem uma peca, populamos os atributos tem_peca e peca.
         this.tem_peca = false;
+        this.peca = null;
     }
 
 
@@ -126,8 +127,13 @@ public class Posicao {
      * @param peca Peca a ser colocada nesta posicao.
      */
     public void colocaPeca(Peca peca) {
-        this.tem_peca = true;
-        this.peca = peca;
+        if (peca != null) {
+            this.tem_peca = true;
+            this.peca = peca;
+        } else {
+            this.tem_peca = false;
+            this.peca = peca;
+        }
         return;
     }
 
