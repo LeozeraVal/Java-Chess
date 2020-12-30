@@ -150,7 +150,6 @@ public class Posicao {
             this.peca = null;
             return temp;
         } else {
-            System.out.println("Esta posicao nao possui Peca para ser removida.");
             return null;
         }
     }
