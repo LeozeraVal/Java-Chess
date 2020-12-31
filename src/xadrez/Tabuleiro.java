@@ -10,7 +10,7 @@ public class Tabuleiro {
     
     // Construtor que inicializa e itera pelo vetor de posicoes atribuindo a coluna, linha e a cor de cada posicao.
     public Tabuleiro() {
-        posicoes = new Posicao[8][8];
+        this.posicoes = new Posicao[8][8];
         for (int linha = 0; linha < this.posicoes.length; linha++) {
             for (int coluna = 0; coluna < this.posicoes[linha].length; coluna++) {
                 if ((linha + coluna) % 2 == 0) {
@@ -29,36 +29,36 @@ public class Tabuleiro {
      * @param pecas Vetor que possui as pecas previamente inicializadas.
      */
     public void populaNovoTabuleiro(Peca[] pecas) {
-        posicoes[0][0].colocaPeca(pecas[0]);
-        posicoes[0][1].colocaPeca(pecas[1]);
-        posicoes[0][2].colocaPeca(pecas[2]);
-        posicoes[0][3].colocaPeca(pecas[3]);
-        posicoes[0][4].colocaPeca(pecas[4]);
-        posicoes[0][5].colocaPeca(pecas[5]);
-        posicoes[0][6].colocaPeca(pecas[6]);
-        posicoes[0][7].colocaPeca(pecas[7]);
+        this.posicoes[0][0].colocaPeca(pecas[0]);
+        this.posicoes[0][1].colocaPeca(pecas[1]);
+        this.posicoes[0][2].colocaPeca(pecas[2]);
+        this.posicoes[0][3].colocaPeca(pecas[3]);
+        this.posicoes[0][4].colocaPeca(pecas[4]);
+        this.posicoes[0][5].colocaPeca(pecas[5]);
+        this.posicoes[0][6].colocaPeca(pecas[6]);
+        this.posicoes[0][7].colocaPeca(pecas[7]);
         
         int i = 0;
         int j = 8;
         while (i < 8 && j < 16) {
-            posicoes[1][i].colocaPeca(pecas[j]);
+            this.posicoes[1][i].colocaPeca(pecas[j]);
             i++;
             j++;
         }
 
-        posicoes[7][0].colocaPeca(pecas[16]);
-        posicoes[7][1].colocaPeca(pecas[17]);
-        posicoes[7][2].colocaPeca(pecas[18]);
-        posicoes[7][3].colocaPeca(pecas[19]);
-        posicoes[7][4].colocaPeca(pecas[20]);
-        posicoes[7][5].colocaPeca(pecas[21]);
-        posicoes[7][6].colocaPeca(pecas[22]);
-        posicoes[7][7].colocaPeca(pecas[23]);
+        this.posicoes[7][0].colocaPeca(pecas[16]);
+        this.posicoes[7][1].colocaPeca(pecas[17]);
+        this.posicoes[7][2].colocaPeca(pecas[18]);
+        this.posicoes[7][3].colocaPeca(pecas[19]);
+        this.posicoes[7][4].colocaPeca(pecas[20]);
+        this.posicoes[7][5].colocaPeca(pecas[21]);
+        this.posicoes[7][6].colocaPeca(pecas[22]);
+        this.posicoes[7][7].colocaPeca(pecas[23]);
 
         i = 0;
         j = 24;
         while (i < 8 && j < 32) {
-            posicoes[6][i].colocaPeca(pecas[j]);
+            this.posicoes[6][i].colocaPeca(pecas[j]);
             i++;
             j++;
         }
@@ -68,19 +68,19 @@ public class Tabuleiro {
     /**
      * Metodo chamado para mover uma peca no tabuleiro, efetua chamada de diversos metodos que checam a validade do mesmo
      * antes de efetuar o movimento.
-     * @param linha_orig Linha de origem do movimento
-     * @param coluna_orig Coluna de origem do movimento
-     * @param linha_dest Linha de destino do moivmento
-     * @param coluna_dest Coluna de destino do movimento
-     * @param cor Cor do jogador que esta efetuando o movimento
-     * @return 1 = Caso movimento valido.
+     * @param linha_orig Linha de origem do movimento.
+     * @param coluna_orig Coluna de origem do movimento.
+     * @param linha_dest Linha de destino do moivmento.
+     * @param coluna_dest Coluna de destino do movimento.
+     * @param cor Cor do jogador que esta efetuando o movimento.
+     * @return true caso movimento tenha sido efetuado, false caso contrario.
      * @return
      */
     public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
 
         // chamamos a funcao checaMovimentoGlobal que engloba todas as checagens de movimento desde os limites do tabuleiro,
         // obstrucoes e movimentacao especifica da peca e guardamos seu retorno em uma variavel.
-        int erro = checaMovimentoGlobal(linha_orig, coluna_orig, linha_dest, coluna_dest, cor);
+        int erro = this.checaMovimentoGlobal(linha_orig, coluna_orig, linha_dest, coluna_dest, cor);
         
         // Logo depois tratamos este retorno printando na tela o erro, ou se nao houve erro continuamos o codigo.
         switch (erro) {
@@ -122,11 +122,11 @@ public class Tabuleiro {
         // Enfim, colocamos a Peca que esta presenta na origem no destino e simultaneamente retiramos da origem.
         this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(this.posicoes[linha_orig-1][coluna_orig-97].removePeca());
 
-        // Entao checamos se o movimento colocou o rei aliado em cheque
-        if(cheque(cor)) {
-            // Se sim, revertemos o movimento
+        // Entao checamos se o movimento colocou o rei aliado em cheque:
+        if(this.cheque(cor)) {
+            // Se sim, revertemos o movimento.
             this.posicoes[linha_orig-1][coluna_orig-97].colocaPeca(this.posicoes[linha_dest-1][coluna_dest-97].removePeca());
-            // E se existia uma peca na posicao de destino a colocamos de volta
+            // E se existia uma peca na posicao de destino a colocamos de volta.
             this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(temp);
             // Comunicamos o erro e retornamos false.
             System.out.println("Este movimento coloca seu Rei em cheque, portanto eh invalido");
@@ -138,11 +138,11 @@ public class Tabuleiro {
 
     /**
      * Metodo que efetua a grande maioria das checagens de validade de um movimento.
-     * @param linha_orig Linha de origem do movimento
-     * @param coluna_orig Coluna de origem do movimento
-     * @param linha_dest Linha de destino do moivmento
-     * @param coluna_dest Coluna de destino do movimento
-     * @param cor Cor do jogador que esta efetuando o movimento
+     * @param linha_orig Linha de origem do movimento.
+     * @param coluna_orig Coluna de origem do movimento.
+     * @param linha_dest Linha de destino do moivmento.
+     * @param coluna_dest Coluna de destino do movimento.
+     * @param cor Cor do jogador que esta efetuando o movimento.
      * @return Codigo de Retornos:
      * 1 = Movimento valido;
      * -1 = Movimento fora do limite do Tabuleiro;
@@ -150,7 +150,7 @@ public class Tabuleiro {
      * -3 = Movimento de uma Peca de cor diferente do jogador;
      * -4 = Movimento invalido pela peca;
      * -5 = Caminho do movimento obstruido;
-     * -6 = Posicao de destino possui peca da mesma cor que origem;
+     * -6 = Posicao de destino possui peca da mesma cor que origem.
      */
     private int checaMovimentoGlobal(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
         // Primeiro chama o metodo que checa os limites deste movimento no tabuleiro. Caso
@@ -164,7 +164,7 @@ public class Tabuleiro {
             return -2;
         }
 
-        // Terceiramente checa a Peca da origem eh da cor do jogador que comandou o movimento
+        // Terceiramente checa a Peca da origem eh da cor do jogador que comandou o movimento.
         if (!(this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getCor() == cor)) {
             
             return -3;
@@ -186,7 +186,7 @@ public class Tabuleiro {
         // Existe um caso especial para o Peao, pois ele so pode se mover na diagonal caso exista uma Peca para ele comer
         // e so pode se mover para frente caso nao existe uma peca no seu destino.
         // Por ja ter checado que o movimento eh valido pela peca, sabemos que o Peao ou esta se movendo uma casa nas suas diagonais ou
-        // para frente
+        // para frente.
         if (this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("xadrez.Peao")) {
             
             // Caso o movimento seja frontal e no seu destino tenha uma Peca, retorna erro, pois o Peao nao come para frente.
@@ -213,11 +213,11 @@ public class Tabuleiro {
     }
 
     /**
-     * Metodo auxiliar que checa o destino e origem do movimento em todas as dimensoes para encontrar inconsistencias
-     * @param linha_orig Linha de origem do movimento
-     * @param coluna_orig Coluna de origem do movimento
-     * @param linha_dest Linha de destino do moivmento
-     * @param coluna_dest Coluna de destino do movimento
+     * Metodo auxiliar que checa o destino e origem do movimento em todas as dimensoes para encontrar inconsistencias.
+     * @param linha_orig Linha de origem do movimento.
+     * @param coluna_orig Coluna de origem do movimento.
+     * @param linha_dest Linha de destino do moivmento.
+     * @param coluna_dest Coluna de destino do movimento.
      * @return True se o movimento esta no tabuleiro e false se nao esta.
      */
     private boolean checaLimiteMovimento(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest) {
@@ -241,10 +241,10 @@ public class Tabuleiro {
 
     /**
      * Metodo auxiliar que checa se o caminho do movimento esta obstruido por outra Peca.
-     * @param linha_orig Linha de origem do movimento
-     * @param coluna_orig Coluna de origem do movimento
-     * @param linha_dest Linha de destino do moivmento
-     * @param coluna_dest Coluna de destino do movimento
+     * @param linha_orig Linha de origem do movimento.
+     * @param coluna_orig Coluna de origem do movimento.
+     * @param linha_dest Linha de destino do moivmento.
+     * @param coluna_dest Coluna de destino do movimento.
      * @return True se caminho esta livre e false se nao esta.
      */
     private boolean checaCaminhoMovimento(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest) {
@@ -257,11 +257,11 @@ public class Tabuleiro {
         coluna_dest = (char) (coluna_dest - 97);
 
 
-        // Movimento horizontal
+        // Movimento horizontal.
         if (linha_orig == linha_dest) {
-            // Movimento para a "Direita"
+            // Movimento para a "Direita".
             if (coluna_orig < coluna_dest) {
-                // Precisamos checar se existem pecas uma coluna depois da origem ate uma coluna antes do destino
+                // Precisamos checar se existem pecas uma coluna depois da origem ate uma coluna antes do destino.
                 for (int coluna = coluna_orig+1; coluna < coluna_dest; coluna++) {
                     if (this.posicoes[linha_orig][coluna].temPeca()) {
                         return false;
@@ -270,9 +270,9 @@ public class Tabuleiro {
                 return true;
             }
 
-            // Movimento para a "Esquerda"
+            // Movimento para a "Esquerda".
             if (coluna_orig > coluna_dest) {
-                // Precisamos checar se existem pecas uma coluna antes da origem ate uma coluna depois do destino
+                // Precisamos checar se existem pecas uma coluna antes da origem ate uma coluna depois do destino.
                 for (int coluna = coluna_orig-1; coluna > coluna_dest; coluna--) {
                     if (this.posicoes[linha_orig][coluna].temPeca()) {
                         return false;
@@ -282,11 +282,11 @@ public class Tabuleiro {
             }
         }
 
-        // Movimento vertical
+        // Movimento vertical.
         if (coluna_orig == coluna_dest) {
-            // Movimento para "Cima"
+            // Movimento para "Cima".
             if (linha_orig < linha_dest) {
-                // Precisamos checar se existem pecas uma linha acima da origem ate uma linha abaixo do destino
+                // Precisamos checar se existem pecas uma linha acima da origem ate uma linha abaixo do destino.
                 for (int linha = linha_orig+1; linha < linha_dest; linha++) {
                     if (this.posicoes[linha][coluna_orig].temPeca()) {
                         return false;
@@ -295,9 +295,9 @@ public class Tabuleiro {
                 return true;
             }
 
-            // Movimento para a "Baixo"
+            // Movimento para a "Baixo".
             if (linha_orig > linha_dest) {
-                // Precisamos checar se existem pecas uma linha abaixo da origem ate uma linha acima do destino
+                // Precisamos checar se existem pecas uma linha abaixo da origem ate uma linha acima do destino.
                 for (int linha = linha_orig-1; linha > linha_dest; linha--) {
                     if (this.posicoes[linha][coluna_orig].temPeca()) {
                         return false;
@@ -307,13 +307,13 @@ public class Tabuleiro {
             }
         }
         
-        // Movimentacao Diagonal
+        // Movimentacao Diagonal.
         if (linha_orig != linha_dest && coluna_orig != coluna_dest) {
 
-            //Movimento Diagonal Superior
+            //Movimento Diagonal Superior.
             if (linha_orig < linha_dest) {
 
-                // Movimento Diagonal Superior Direito
+                // Movimento Diagonal Superior Direito.
                 if (coluna_orig < coluna_dest) {
                     int linha = linha_orig+1;
                     int coluna = coluna_orig+1;
@@ -330,7 +330,7 @@ public class Tabuleiro {
                     return true;
                 }
 
-                // Movimento Diagonal Superior Esquerdo
+                // Movimento Diagonal Superior Esquerdo.
                 if (coluna_orig > coluna_dest) {
                     int linha = linha_orig+1;
                     int coluna = coluna_orig-1;
@@ -348,10 +348,10 @@ public class Tabuleiro {
                 }
             }
 
-            //Movimento Diagonal Inferior
+            //Movimento Diagonal Inferior.
             if (linha_orig > linha_dest) {
 
-                // Movimento Diagonal Inferior Direito
+                // Movimento Diagonal Inferior Direito.
                 if (coluna_orig < coluna_dest) {
                     int linha = linha_orig-1;
                     int coluna = coluna_orig+1;
@@ -368,7 +368,7 @@ public class Tabuleiro {
                     return true;
                 }
                 
-                // Movimento Diagonal Superior Esquerdo
+                // Movimento Diagonal Superior Esquerdo.
                 if (coluna_orig > coluna_dest) {
                     int linha = linha_orig-1;
                     int coluna = coluna_orig-1;
@@ -398,8 +398,8 @@ public class Tabuleiro {
      * @return true caso rei esteja em cheque e false caso contrario.
      */
     public boolean cheque(char cor_rei) {
-        // Primeiro acha o rei da cor_rei
-        Posicao pos_rei = achaRei(cor_rei);
+        // Primeiro acha o rei da cor_rei.
+        Posicao pos_rei = this.achaRei(cor_rei);
         // Descontruimos a posicao do rei nas variaveis linha_rei e coluna _rei.
         int linha_rei = pos_rei.getLinha();
         char coluna_rei = pos_rei.getColuna();
@@ -418,7 +418,7 @@ public class Tabuleiro {
             for (int coluna = 0; coluna < 8; coluna++) {
                 if (this.posicoes[linha][coluna].temPeca()) {
                     if (this.posicoes[linha][coluna].getPeca().getCor() == cor_atacante) {
-                        if (checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante) == 1) {
+                        if (this.checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante) == 1) {
                             return true;
                         }
                     }
@@ -451,7 +451,7 @@ public class Tabuleiro {
             for (int coluna = 0; coluna < 8; coluna++) {
                 if (this.posicoes[linha][coluna].temPeca()) {
                     if (this.posicoes[linha][coluna].getPeca().getCor() == cor_atacante) {
-                        if (checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante) == 1) {
+                        if (this.checaMovimentoGlobal(linha+1, (char) (coluna + 97), linha_rei, coluna_rei, cor_atacante) == 1) {
                             return true;
                         }
                     }
@@ -489,23 +489,23 @@ public class Tabuleiro {
         for (int linha_rei_temp = linha_rei_atual-1; linha_rei_temp <= linha_rei_atual+1; linha_rei_temp++) {
             for (int coluna_rei_temp = coluna_rei_atual-1; coluna_rei_temp <= coluna_rei_atual+1; coluna_rei_temp++) {
                 // Efetua um movimento temporario do Rei para esta posicao, caso seja valido.
-                if (!(checaMovimentoGlobal(linha_rei_atual, coluna_rei_atual, linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo) == 1)) {
+                if (!(this.checaMovimentoGlobal(linha_rei_atual, coluna_rei_atual, linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo) == 1)) {
                     // Se o movimento nao eh valido, continuamos para o proximo movimento possivel do Rei.
                     continue;
                 }
                 // Para efetuar o movimento temporario precisamos guardar a peca de destino, pois seria hipoteticamente
                 // comida pelo rei, por isso a variavel Peca temp.
-                Peca temp = posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca();
-                // Movemos o rei pra casa de destino hipotetico
-                posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(posicoes[linha_rei_atual-1][coluna_rei_atual-97].removePeca());
+                Peca temp = this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca();
+                // Movemos o rei pra casa de destino hipotetico.
+                this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(this.posicoes[linha_rei_atual-1][coluna_rei_atual-97].removePeca());
                 // Rodamos a checagem de cheque naquela posicao, se retornar false, temos uma saida do cheque, portanto atribuimos a
                 // booleana saida true.
-                if (!cheque(linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
+                if (!this.cheque(linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
                     saida = true;
                 }
                 // Revertemos o movimento temporario que efetuamos para o rei e a peca que foi hipoteticamente comida.
-                posicoes[linha_rei_atual-1][coluna_rei_atual-97].colocaPeca(posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca());
-                posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(temp);
+                this.posicoes[linha_rei_atual-1][coluna_rei_atual-97].colocaPeca(this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca());
+                this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(temp);
                 // Apos reverter o movimento, se a variavel saida for true, retornamos false para o cheque mate, pois ha uma saida do
                 // cheque.
                 if (saida) {
@@ -519,10 +519,10 @@ public class Tabuleiro {
         // Para cada posicao do tabuleiro.
         for (int linha_atual = 0; linha_atual < 8; linha_atual++) {
             for (int coluna_atual = 0; coluna_atual < 8; coluna_atual++) {
-                // Se a peca nesta posicao existe e possui a mesma cor do rei 
-                if (posicoes[linha_atual][coluna_atual].temPeca() && posicoes[linha_atual][coluna_atual].getPeca().getCor() == cor_rei_inimigo) {
-                    // Caso for o proprio rei pulamos, (ja checamos todas as possibilidades de movimento do mesmo)
-                    if (posicoes[linha_atual][coluna_atual].getPeca().getClass().getName().equals("xadrez.Rei")) {
+                // Se a peca nesta posicao existe e possui a mesma cor do rei :
+                if (this.posicoes[linha_atual][coluna_atual].temPeca() && this.posicoes[linha_atual][coluna_atual].getPeca().getCor() == cor_rei_inimigo) {
+                    // Caso for o proprio rei pulamos. (ja checamos todas as possibilidades de movimento do mesmo)
+                    if (this.posicoes[linha_atual][coluna_atual].getPeca().getClass().getName().equals("xadrez.Rei")) {
                         continue;
                     }
 
@@ -531,19 +531,19 @@ public class Tabuleiro {
                     for (int linha_temp = 0; linha_temp < 8; linha_temp++) {
                         for (int coluna_temp = 0; coluna_temp < 8; coluna_temp++) {
                             // Caso o movimento desta peca ate o destino seja possivel.
-                            if (checaMovimentoGlobal(linha_atual+1, (char) (coluna_atual+97), linha_temp+1, (char) (coluna_temp+97), cor_rei_inimigo) == 1) {
+                            if (this.checaMovimentoGlobal(linha_atual+1, (char) (coluna_atual+97), linha_temp+1, (char) (coluna_temp+97), cor_rei_inimigo) == 1) {
                                 // Efetuamos um movimento temporario ate o destino e checamos se o cheque permanece.
                                 Peca temp = posicoes[linha_temp][coluna_temp].removePeca();
-                                posicoes[linha_temp][coluna_temp].colocaPeca(posicoes[linha_atual][coluna_atual].removePeca());
+                                this.posicoes[linha_temp][coluna_temp].colocaPeca(this.posicoes[linha_atual][coluna_atual].removePeca());
 
                                 // Caso o rei nao esteja mais em cheque, atribuimos a variavel saida true.
-                                if (!cheque(linha_rei_atual, (char) coluna_rei_atual, cor_rei_inimigo)) {
+                                if (!this.cheque(linha_rei_atual, (char) coluna_rei_atual, cor_rei_inimigo)) {
                                     saida = true;
 
                                 }
                                 // Desfazemos o movimento temporario.
-                                posicoes[linha_atual][coluna_atual].colocaPeca(posicoes[linha_temp][coluna_temp].removePeca());
-                                posicoes[linha_temp][coluna_temp].colocaPeca(temp);
+                                this.posicoes[linha_atual][coluna_atual].colocaPeca(this.posicoes[linha_temp][coluna_temp].removePeca());
+                                this.posicoes[linha_temp][coluna_temp].colocaPeca(temp);
 
                                 // Apos reverter o movimento, se a variavel saida for true, retornamos false para o cheque mate, pois ha uma saida do
                                 // cheque.
@@ -563,7 +563,7 @@ public class Tabuleiro {
 
     /**
      * Metodo auxiliar que apenas percorre o tabuleiro percorrendo a posicao do Rei da cor alvo e retorna a mesma.
-     * @param cor cor do Rei cuja posicao eh desejada
+     * @param cor cor do Rei cuja posicao eh desejada.
      * @return Referencia a Posicao do rei ou null caso o rei nao exista (Caso absurdo).
      */
     private Posicao achaRei(char cor) {
@@ -581,8 +581,28 @@ public class Tabuleiro {
                 }
             }
         }
-        // Nunca chegara aqui
+        // Nunca chegara aqui.
         return null;
+    }
+
+    /**
+     * Metodo utilizado para obter a Peca da posicao especificada, O Jogo utilizara para saber qual peca foi
+     * comida em um movimento e comunicar ao jogador.
+     * @param linha Linha da Peca desejada.
+     * @param coluna Coluna da Peca desejada.
+     * @return null se o movimento for invalido ou se nao existe peca no destino, caso contrario uma referencia ao objeto Peca.
+     */
+    public Peca achaPeca(int linha, char coluna) {
+        // Validamos ambas linha e coluna.
+        if (1 > linha || linha > 8) {
+            return null;
+        }
+        if ('a' > coluna || coluna > 'h') {
+            return null;
+        }
+
+        // Retornamos a Peca. 
+        return this.posicoes[linha-1][coluna-97].getPeca();
     }
 
     /**

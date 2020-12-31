@@ -58,23 +58,41 @@ public class Jogo {
     /**
      * Passa para o tabuleiro os argumentos do movimento, se o tabuleiro efetuar o movimento, passa a vez.
      * Se nao for, apenas comunica que ainda eh a vez do jogador.
-     * @param linha_orig
-     * @param coluna_orig
-     * @param linha_dest
-     * @param coluna_dest
-     * @param cor
-     * @return
+     * @param linha_orig Linha de origem do movimento.
+     * @param coluna_orig Coluna de origem do movimento.
+     * @param linha_dest Linha de destino do moivmento.
+     * @param coluna_dest Coluna de destino do movimento.
+     * @param cor Cor do jogador que esta efetuando o movimento.
+     * @return true caso movimento foi efetuado e false caso contrario.
      */
     private boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
+        // Cria uma Peca temporaria que armazena a referencia a peca no destino do movimento.
+        Peca temp = this.tabuleiro.achaPeca(linha_dest, coluna_dest);
+
+        // Se o movimento nao foi efetuado comunicamos ao jogador, voltamos temp a null e retornamos false.
         if (!this.tabuleiro.mover(linha_orig, coluna_orig, linha_dest, coluna_dest, cor)) {
             System.out.println("Ainda eh sua vez");
+            temp = null;
             return false;
         }
+
+        // Caso o movimento foi efetuado, precisamos remover a peca da lista de pecas do jogador alvo:
+        // Se o jogador 1 nao possui a cor de origem do movimento a peca a ser removida eh dele.
+        if (this.j1.getCor() != cor) {
+            this.j1.removePeca(temp);
+        } else {
+            // Caso contrario, j2 possui a cor alvo e portanto removemos dele.
+            this.j2.removePeca(temp);
+        }
+        // Caso nao exista Peca no destino, temp possuira null e o metodo removePeca apenas nao remove Peca do
+        // jogador.
+        
+        // Retornamos true pro movimento.
         return true;
     }
 
     /**
-     * Apresenta o tabuleiro e diz de quem eh a vez no momento
+     * Apresenta o tabuleiro e diz de quem eh a vez no momento.
      */
     private void status() {
         this.tabuleiro.printTabuleiro();
