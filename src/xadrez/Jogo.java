@@ -32,22 +32,51 @@ public class Jogo {
         // Abre um Scanner
         Scanner ent = new Scanner(System.in);
         System.out.println("Bem Vindo ao Xadrez no terminal!");
-        System.out.println("Digite o nome do Jogador 1, comandante das brancas.");
-        // Instancia o jogador 1 com o nome inserido e a cor branca.
-        this.j1 = new Jogador(ent.nextLine(), 'b');
-        // Adiciona as pecas padroes da cor branca ao jogador 1.
-        for (int i = 0; i < 16; i++) {
-            this.j1.adicionaPeca(pecas[i]);
-        }
+        // Usamos a flag true pra sair do loop quando finalmente obtivermos uma entrada valida.
+        boolean flag = true;
+        do {
+            // Utilizamos esse try catch para tratar a entrada do usuario para o nome do Jogador.
+            try {
+                System.out.println("Digite o nome do Jogador 1, comandante das brancas.");
+                // Instancia o jogador 1 com o nome inserido e a cor branca, caso o usuario nao tenha inserido nada joga execao.
+                String str = ent.nextLine();
+                if (str.length() < 1) {
+                    throw new Exception();
+                }
+                this.j1 = new Jogador(str, 'b');
+                // Adiciona as pecas padroes da cor branca ao jogador 1.
+                for (int i = 0; i < 16; i++) {
+                    this.j1.adicionaPeca(pecas[i]);
+                }
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("Nao foi inserido um nome valido para o Jogador 1. Tente novamente.");
+                continue;
+            }
+        } while (flag);
+        // Usamos a flag true pra sair do loop quando finalmente obtivermos uma entrada valida.
+        flag = true;
+        do {
+            // Utilizamos esse try catch para tratar a entrada do usuario para o nome do Jogador.
+            try {
+                System.out.println("Digite o nome do Jogador 2, comandante das pretas.");
+                // Instancia o jogador 2 com o nome inserido e a cor preta, caso o usuario nao tenha inserido nada joga execao.
+                String str = ent.nextLine();
+                if (str.length() < 1) {
+                    throw new Exception();
+                }
+                this.j2 = new Jogador(str , 'p');
+                // Adiciona as pecas padroes da cor preta ao jogador 2.
+                for (int i = 16; i < 32; i++) {
+                    this.j2.adicionaPeca(pecas[i]);
+                }
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("Nao foi inserido um nome valido para o Jogador 2. Tente novamente.");
+                continue;
+            }
+        } while(flag);
 
-        System.out.println("Digite o nome do Jogador 2, comandante das pretas.");
-        // Instancia o jogador 2 com o nome inserido e a cor preta.
-        this.j2 = new Jogador(ent.nextLine() , 'p');
-        // Adiciona as pecas padroes da cor preta ao jogador 2.
-        for (int i = 16; i < 32; i++) {
-            this.j2.adicionaPeca(pecas[i]);
-        }
-        
         // Chama o metodo populaNovoTabuleiro() para inserir no tabuleiro do jeito padrao de inicio de jogo as pecas.
         this.tabuleiro.populaNovoTabuleiro(pecas);
 
@@ -65,7 +94,7 @@ public class Jogo {
      * @param cor Cor do jogador que esta efetuando o movimento.
      * @return true caso movimento foi efetuado e false caso contrario.
      */
-    private boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
+    private boolean mover(char coluna_orig, int linha_orig, char coluna_dest, int linha_dest, char cor) {
         // Cria uma Peca temporaria que armazena a referencia a peca no destino do movimento.
         Peca temp = this.tabuleiro.achaPeca(linha_dest, coluna_dest);
 
@@ -178,57 +207,66 @@ public class Jogo {
 
             // Chama o metodo verPecas() do jogador da vez para ver quais sao suas pecas.
             this.turn.verPecas();
-
-            // Espera uma entrada.
-            String str = ent.nextLine();
-
-            // Se a entrada for "Desistir", anuncia a desistencia do jogador da vez e sai do loop.
-            if (str.equalsIgnoreCase("Desistir")) {
-                System.out.println(this.turn.getNome() + " desitiu.");
-                break;
-            }
-
-            // Se a entrada for "empate", a proxima entrada do teclado sera a resposta do oponente para a proposta de empate.
-            if (str.equalsIgnoreCase("empate")) {
-                System.out.println(this.turn.getNome() + " deseja terminara partida em empate, aceita? (Digite Sim ou Nao)");
-                str = ent.nextLine();
-                // Se sim, anunciamos o empate e saimos do loop.
-                if (str.equalsIgnoreCase("Sim")) {
-                    System.out.println("Empate aceito. O jogo acaba em Empate.");
+            // Utilizamos um try catch para tratar qualquer excecao oriunda do Scanner.
+            try {
+                System.out.println("Insira um comando:");
+                // Espera uma entrada.
+                String str = ent.nextLine();
+                str = this.trataEntrada(str);
+                // Se a entrada for "Desistir", anuncia a desistencia do jogador da vez e sai do loop.
+                if (str.equalsIgnoreCase("Desistir")) {
+                    System.out.println(this.turn.getNome() + " desitiu.");
                     break;
-                } else {
-                    // Se nao retornamos ao comeco do loop ainda na vez de quem pediu o empate.
-                    continue;
                 }
-            }
-            // Entao, caso nao seja uma desistencia ou empate, lemos os comandos inseridos no terminal e tentamos efetuar o movimento.
-            if(mover(str.charAt(0) - 48, str.charAt(1), str.charAt(3) - 48, str.charAt(4), this.turn.getCor())) {
-                // Caso o movimento foi efetuado, vemos se colocou o inimigo em cheque.
-                if (this.turn == j1) {
-                    if (this.tabuleiro.cheque('p')) {
-                        // Se sim, checamos se foi cheque mate
-                        if (this.tabuleiro.chequeMate('b')) {
-                            // Caso o cheque mate tenha sido efetuado, anunciamos a vitoria do jogador e colocamos a flag fim em true.
-                            System.out.println("Cheque Mate! O jogador " + this.j1.getNome() + " ganha por cheque mate!");
-                            fim = true;
-                        } else {
-                            // Se foi apenas cheque anunciamos que o jogador colocu seu inimigo em cheque.
-                            System.out.println("O jogador " + this.j1.getNome() + " colocou " + this.j2.getNome() + " em cheque.");
-                        }
-                    }
-                } else {
-                    // Caso identido ao superior porem para o jogador 2.
-                    if (this.tabuleiro.cheque('b')) {
-                        if (this.tabuleiro.chequeMate('p')) {
-                            System.out.println("Cheque Mate! O jogador " + this.j2.getNome() + " ganha por cheque mate!");
-                            fim = true;
-                        } else {
-                            System.out.println("O jogador " + this.j2.getNome() + " colocou " + this.j1.getNome() + " em cheque.");
-                        }
+    
+                // Se a entrada for "empate", a proxima entrada do teclado sera a resposta do oponente para a proposta de empate.
+                if (str.equalsIgnoreCase("empate")) {
+                    System.out.println(this.turn.getNome() + " deseja terminara partida em empate, aceita? (Digite Sim ou Nao)");
+                    str = ent.nextLine();
+                    // Se sim, anunciamos o empate e saimos do loop.
+                    if (str.equalsIgnoreCase("Sim")) {
+                        System.out.println("Empate aceito. O jogo acaba em Empate.");
+                        break;
+                    } else {
+                        // Se nao retornamos ao comeco do loop ainda na vez de quem pediu o empate.
+                        continue;
                     }
                 }
-                // Ao final do movimento passamos a vez.
-                this.passarVez();
+                // Entao, caso nao seja uma desistencia ou empate, lemos os comandos inseridos no terminal e tentamos efetuar o movimento.
+                if(mover(str.charAt(0), str.charAt(1) - 48, str.charAt(3), str.charAt(4) - 48, this.turn.getCor())) {
+                    System.out.println("Movimento Efetuado!");
+                    // Caso o movimento foi efetuado, vemos se colocou o inimigo em cheque.
+                    if (this.turn == j1) {
+                        if (this.tabuleiro.cheque('p')) {
+                            // Se sim, checamos se foi cheque mate
+                            if (this.tabuleiro.chequeMate('b')) {
+                                // Caso o cheque mate tenha sido efetuado, anunciamos a vitoria do jogador e colocamos a flag fim em true.
+                                System.out.println("Cheque Mate! O jogador " + this.j1.getNome() + " ganha por cheque mate!");
+                                fim = true;
+                            } else {
+                                // Se foi apenas cheque anunciamos que o jogador colocu seu inimigo em cheque.
+                                System.out.println("O jogador " + this.j1.getNome() + " colocou " + this.j2.getNome() + " em cheque.");
+                            }
+                        }
+                    } else {
+                        // Caso identido ao superior porem para o jogador 2.
+                        if (this.tabuleiro.cheque('b')) {
+                            if (this.tabuleiro.chequeMate('p')) {
+                                System.out.println("Cheque Mate! O jogador " + this.j2.getNome() + " ganha por cheque mate!");
+                                fim = true;
+                            } else {
+                                System.out.println("O jogador " + this.j2.getNome() + " colocou " + this.j1.getNome() + " em cheque.");
+                            }
+                        }
+                    }
+                    // Ao final do movimento passamos a vez.
+                    this.passarVez();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Insira uma entrada Valida. As entradas validas sao:");
+                System.out.println("Desistir, Empate, ColunaLinha ColunaLinha");
+                continue;
             }
         }
         // Caso o jogo tenha chego ao fim, printamos o tabuleiro uma ultima vez.
@@ -238,5 +276,83 @@ public class Jogo {
         ent.nextLine();
         ent.close();
         return;
+    }
+
+    /**
+     * Metodo chamado para tratar as entradas de movimento durante o loop de jogo.
+     * @param str String de comando inserida pelo usuario.
+     * @return String tratada.
+     * @throws Exception Excecao que possui a mensagem de erro da entrada do usuario.
+     */
+    private String trataEntrada(String str) throws Exception {
+        // Se eh um dos comandos especificos retorna o comando.
+        if (str.equalsIgnoreCase("Desistir") || str.equalsIgnoreCase("Empate")) {
+            return str;
+        }
+        // Caso nao eh um comando especifico, checamos se tem o tamanho de 5,
+        // se nao nao eh um comando de movimento valido.
+        if (str.length() != 5) {
+            throw new Exception("Entrada nao tem 5 caracteres.");
+        }
+
+        // Converte a String para um array de caracteres para analisar cada um.
+        char[] entrada = str.toCharArray();
+
+        // Valida cada caracter do movimento.
+        for (int i = 0; i < 5; i++) {
+            if (i == 2) {
+                if (entrada[i] != ' ') {
+                    throw new Exception("Separe as coordenadas de origem e destino por espaco.");
+                }
+            } else {
+                if (!((entrada[i] > 48 && entrada[i] < 57) || (entrada[i] > 96 && entrada[i] < 105))) {
+                    throw new Exception("Linha ou Coluna maior do que o tabuleiro.");
+                }
+            }
+        }
+
+        // Caso o usuario tenha colocado a linha ao inves de coluna na primeira coordenada:
+        if (entrada[0] > 48 && entrada[0] < 57) {
+            // E colocou a coluna como segundo caracter:
+            if (entrada[1] > 96 && entrada[1] < 105) {
+                // Trocamos ambos.
+                char temp = entrada[0];
+                entrada[0] = entrada[1];
+                entrada[1] = temp;
+            } else {
+                // Se o usuario inseriu duas linhas em uma coordenada jogamos excecao.
+                throw new Exception("Erro de coordenada com duas Linhas.");
+            }
+        }
+
+        // Caso o usuario tenha colocado a linha ao inves de coluna na segunda coordenada:
+        if (entrada[3] > 48 && entrada[3] < 57) {
+            // E colocou a coluna como segundo caracter:
+            if (entrada[4] > 96 && entrada[4] < 105) {
+                char temp = entrada[3];
+                entrada[3] = entrada[4];
+                entrada[4] = temp;
+            } else {
+                throw new Exception("Erro de coordenada com duas Linhas.");
+            }
+        }
+
+        // Caso o usuario tenha inserido a coluna de maneira certa na primeira coordenada.
+        if (entrada[0] > 96 && entrada[0] < 105) {
+            // E nao colocou uma linha na mesma coordenada.
+            if (!(entrada[1] > 48 && entrada[1] < 57)) {
+                throw new Exception("Erro de coordenada com duas Colunas.");
+            }
+        }
+
+        // Caso o usuario tenha inserido a coluna de maneira certa na segunda coordenada.
+        if (entrada[3] > 96 && entrada[3] < 105) {
+            // E nao colocou uma linha na mesma coordenada.
+            if (!(entrada[4] > 48 && entrada[4] < 57)) {
+                throw new Exception("Erro de coordenada com duas Colunas.");
+            }
+        }
+
+        return new String(entrada);
     }
 }
