@@ -133,7 +133,7 @@ public class Tabuleiro {
             // E se existia uma peca na posicao de destino a colocamos de volta.
             this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(temp);
             // Comunicamos o erro e retornamos false.
-            System.out.println("Este movimento coloca seu Rei em cheque, portanto eh invalido");
+            System.out.println("Este movimento coloca seu Rei em cheque, portanto eh invalido.");
             return false;
         }
         // Se chegou ate aqui o movimento foi efetuado e validado, retornamos true.

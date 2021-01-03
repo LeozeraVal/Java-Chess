@@ -398,7 +398,7 @@ public class Jogo {
      */
     private String trataEntrada(String str) throws Exception {
         // Se eh um dos comandos especificos retorna o comando.
-        if (str.equalsIgnoreCase("Desistir") || str.equalsIgnoreCase("Empate") || str.equalsIgnoreCase("Salvar")) {
+        if (str.equalsIgnoreCase("Desistir") || str.equalsIgnoreCase("Empate") || str.equalsIgnoreCase("Salvar") || str.equalsIgnoreCase("Sair")) {
             return str;
         }
         // Caso nao eh um comando especifico, checamos se tem o tamanho de 5,
@@ -490,6 +490,18 @@ public class Jogo {
                 // Espera uma entrada.
                 String str = ent.nextLine();
                 str = this.trataEntrada(str);
+
+                // Se a entrada for "Sair" o avisamos que seu jogo nao sera salvo e perguntamos se tem certeza que quer sair.
+                if (str.equalsIgnoreCase("Sair")) {
+                    System.out.println("Deseja mesmo sair? Seu jogo nao sera salvo! Para salvar digite Nao e logo depois Salvar.");
+                    System.out.println("Se quer mesmo sair digite SIM");
+                    str = ent.nextLine();
+                    if (str.equalsIgnoreCase("Nao")) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
 
                 // Se a entrada for "Salvar", chama o metodo salvarJogo() e logo depois pergunta se o usuario quer continuar jogando
                 // ou sair do jogo. Tratamos ambos os casos.
