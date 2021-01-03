@@ -8,8 +8,9 @@ public class Rei extends Peca {
 
     /**
      * @param cor Indica qual a cor do Rei a ser criado.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Rei(char cor) {
+    public Rei(char cor) throws Exception {
         super(cor);
     }
 

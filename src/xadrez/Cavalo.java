@@ -8,8 +8,9 @@ public class Cavalo extends Peca {
     
     /**
      * @param cor Indica qual a cor do Cavalo a ser criado.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Cavalo(char cor) {
+    public Cavalo(char cor) throws Exception {
         super(cor);
     }
 

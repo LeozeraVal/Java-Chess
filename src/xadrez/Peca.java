@@ -14,12 +14,13 @@ public abstract class Peca {
     /**
      * Construtor da Peca, sera utilizado por todas as pecas.
      * @param cor Indica qual a cor da Peca a ser criada.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Peca(char cor) {
+    public Peca(char cor) throws Exception {
         if (cor == 'p' || cor == 'b') {
             this.cor = cor;
         } else {
-            System.out.println("Uma peca tem que ser preta ou branca.");
+            throw new Exception("Cor Invalida de Peca");
         }
     }
     

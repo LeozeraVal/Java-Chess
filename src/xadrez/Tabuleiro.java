@@ -1,5 +1,7 @@
 package xadrez;
 
+import java.util.LinkedList;
+
 /**
  * Classe Tabulerio que possui um conjunto de posicoes e eh responsavel por checar seus limites e efetuar movimentos e checagens dentro do mesmo.
  * @author Leonardo Valerio
@@ -8,7 +10,9 @@ public class Tabuleiro {
     // Cria um vetor bidimencional para guardar as posicoes.
     private Posicao[][] posicoes;
     
-    // Construtor que inicializa e itera pelo vetor de posicoes atribuindo a coluna, linha e a cor de cada posicao.
+    /**
+     * Construtor que inicializa e itera pelo vetor de posicoes atribuindo a coluna, linha e a cor de cada posicao.
+     */
     public Tabuleiro() {
         this.posicoes = new Posicao[8][8];
         for (int linha = 0; linha < this.posicoes.length; linha++) {
@@ -28,37 +32,37 @@ public class Tabuleiro {
      * a ordem de inicio do jogo.
      * @param pecas Vetor que possui as pecas previamente inicializadas.
      */
-    public void populaNovoTabuleiro(Peca[] pecas) {
-        this.posicoes[0][0].colocaPeca(pecas[0]);
-        this.posicoes[0][1].colocaPeca(pecas[1]);
-        this.posicoes[0][2].colocaPeca(pecas[2]);
-        this.posicoes[0][3].colocaPeca(pecas[3]);
-        this.posicoes[0][4].colocaPeca(pecas[4]);
-        this.posicoes[0][5].colocaPeca(pecas[5]);
-        this.posicoes[0][6].colocaPeca(pecas[6]);
-        this.posicoes[0][7].colocaPeca(pecas[7]);
+    public void populaNovoTabuleiro(LinkedList<Peca> pecas) {
+        this.posicoes[0][0].colocaPeca(pecas.get(0));
+        this.posicoes[0][1].colocaPeca(pecas.get(1));
+        this.posicoes[0][2].colocaPeca(pecas.get(2));
+        this.posicoes[0][3].colocaPeca(pecas.get(3));
+        this.posicoes[0][4].colocaPeca(pecas.get(4));
+        this.posicoes[0][5].colocaPeca(pecas.get(5));
+        this.posicoes[0][6].colocaPeca(pecas.get(6));
+        this.posicoes[0][7].colocaPeca(pecas.get(7));
         
         int i = 0;
         int j = 8;
         while (i < 8 && j < 16) {
-            this.posicoes[1][i].colocaPeca(pecas[j]);
+            this.posicoes[1][i].colocaPeca(pecas.get(j));
             i++;
             j++;
         }
 
-        this.posicoes[7][0].colocaPeca(pecas[16]);
-        this.posicoes[7][1].colocaPeca(pecas[17]);
-        this.posicoes[7][2].colocaPeca(pecas[18]);
-        this.posicoes[7][3].colocaPeca(pecas[19]);
-        this.posicoes[7][4].colocaPeca(pecas[20]);
-        this.posicoes[7][5].colocaPeca(pecas[21]);
-        this.posicoes[7][6].colocaPeca(pecas[22]);
-        this.posicoes[7][7].colocaPeca(pecas[23]);
+        this.posicoes[7][0].colocaPeca(pecas.get(16));
+        this.posicoes[7][1].colocaPeca(pecas.get(17));
+        this.posicoes[7][2].colocaPeca(pecas.get(18));
+        this.posicoes[7][3].colocaPeca(pecas.get(19));
+        this.posicoes[7][4].colocaPeca(pecas.get(20));
+        this.posicoes[7][5].colocaPeca(pecas.get(21));
+        this.posicoes[7][6].colocaPeca(pecas.get(22));
+        this.posicoes[7][7].colocaPeca(pecas.get(23));
 
         i = 0;
         j = 24;
         while (i < 8 && j < 32) {
-            this.posicoes[6][i].colocaPeca(pecas[j]);
+            this.posicoes[6][i].colocaPeca(pecas.get(j));
             i++;
             j++;
         }
@@ -641,4 +645,56 @@ public class Tabuleiro {
         System.out.println("     | | | | | | | |");
         System.out.println("     a b c d e f g h");
     }
+
+    /**
+     * Metodo que transforma o estado atual do tabuleiro em uma String e a retorna.
+     * @return O tabuleiro em formato de String, primeiro uma linha com a quantidade de pecas ativas no momento,
+     * depois uma linha para cada peca dizendo sua posicao, sua classe e sua cor.
+     */
+	public String stringTabuleiro() {
+        // Declaramos a String final a ser retornada.
+        String tabuleiro;
+        // Declaramos a variavel que ira conter a quantidade de Pecas ativas;
+        int qtd_pecas = 0;
+        // Declaramos e inicializamos uma string que ira conter o estado do tabuleiro.
+        String pecas = "";
+
+        // Para cada Posicao do tabuleiro.
+        for (int linha = 0; linha < 8; linha++) {
+            for (int coluna = 0; coluna < 8; coluna++) {
+                // Se esta Posicao possui uma Peca:
+                if (this.posicoes[linha][coluna].temPeca()) {
+                    // Aumenta a variavel pecas em 1.
+                    qtd_pecas++;
+                    // Guarda o nome da Peca em uma String usando o metodo getSimpleName();
+                    String nome_peca = this.posicoes[linha][coluna].getPeca().getClass().getSimpleName();
+                    // Guarda a cor da Peca em outra String.
+                    char cor_peca = this.posicoes[linha][coluna].getPeca().getCor();
+                    // Finalmente, combinamos todas as informacoes em uma String coord, que possui uma quebra de linha, o nome da Peca,
+                    // sua cor, sua linha e sua coluna.
+                    String coord = new String("\n" + (char)(coluna+97) + (linha+1) + " " + cor_peca + " " + nome_peca);
+                    // Utilizamos a funcao ineretnte do atribuidor de String que efetua uma concatenacao das duas Strings.
+                    // Neste caso, no primeiro momento a String estara vazia e recebera a primeira coordenada,
+                    // nos proximos casos as coordenadas serao adicionadas a lista de coordenadas ja presente.
+                    pecas = pecas + coord;
+                }
+            }
+        }
+        // Atribuimos a string final a juncao da qtd de pecas mais suas coordenadas e a retornamos.
+        tabuleiro = new String(qtd_pecas + pecas);
+        return tabuleiro;
+	}
+
+    /**
+     * Metodo chamado pelo Jogo para popular este tabuleiro com uma matriz de Pecas em suas posicoes equivalente do tabuleiro
+     * @param pecas Matriz de Pecas. Uma peca na linha 0 coluna 0 no tabuleiro estaria na posicao [0][0] desta matriz.
+     */
+	public void populaVelhoTabuleiro(Peca[][] pecas) {
+        // Para cada coluna de cada linha colocar a Peca correspondente presente na Matriz.
+        for (int linha = 0; linha < 8; linha++) {
+            for (int coluna = 0; coluna < 8; coluna++) {
+                this.posicoes[linha][coluna].colocaPeca(pecas[linha][coluna]);
+            }
+        }
+	}
 }

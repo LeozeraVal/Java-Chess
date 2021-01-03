@@ -8,8 +8,9 @@ public class Torre extends Peca {
 
     /**
      * @param cor Indica qual a cor da Torre a ser criada.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Torre(char cor) {
+    public Torre(char cor) throws Exception {
         super(cor);
     }
 

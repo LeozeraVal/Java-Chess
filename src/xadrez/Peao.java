@@ -8,8 +8,9 @@ public class Peao extends Peca {
 
     /**
      * @param cor Indica qual a cor do Peao a ser criado.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Peao(char cor) {
+    public Peao(char cor) throws Exception {
         super(cor);
     }
 

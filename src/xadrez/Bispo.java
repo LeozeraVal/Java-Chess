@@ -8,8 +8,9 @@ public class Bispo extends Peca {
 
     /**
      * @param cor Indica qual a cor do Bispo a ser criado.
+     * @throws Exception Cor Invalida de Peca
      */
-    public Bispo(char cor) {
+    public Bispo(char cor) throws Exception {
         super(cor);
     }
 
