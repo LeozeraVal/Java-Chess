@@ -50,7 +50,10 @@ public class Jogo {
                 if (str.equalsIgnoreCase("Novo")) {
                     flag = false;
                 } else if (str.equalsIgnoreCase("Carregar")) {
-                    if(this.carregar(ent)){
+                    System.out.println("Digite o nome do arquivo em que deseja carregar o jogo: (Sem '.txt')");
+                    // Recebemos o nome do arquivo a ser carregado.
+                    String file_name = ent.nextLine();
+                    if(this.carregar(file_name)){
                         return;
                     } else {
                         System.out.println("Erro ao carregar Arquivo.");
@@ -236,10 +239,7 @@ public class Jogo {
      * @param in Scanner inicializado pelo Construtor.
      * @return true caso arquivo tenha sido carregado com sucesso e false caso contrario.
      */
-    private boolean carregar(Scanner in) {
-        System.out.println("Digite o nome do arquivo em que deseja carregar o jogo: (Sem .txt)");
-        // Recebemos o nome do arquivo a ser carregado.
-        String file_name = in.nextLine();
+    private boolean carregar(String file_name) {
         // Utilizamos um try catch para tratar as varias excecoes que podem ser jogadas pelos metodos de entrada e saida.
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file_name + ".txt"))) {
             // Declaramos uma String line para receber cada linha do arquivo e ja captamos a primeira.
@@ -275,7 +275,7 @@ public class Jogo {
 
             // Criamos uma matriz temporaria que ira armazenar todas as pecas detectadas
             // Possui tamanho de 8x8 pois eh uma mimica do tabuleiro (Facilita na hora de atribuir as Pecas ao tabuleiro).
-            Peca[][] pecas = new Peca[8][8];
+            Peca[][] pecas = new Peca[8][8]; // Por padrao todas as referencias serao criadas como null.
 
             // Enquanto existirem pecas:
             while(qtd_pecas > 0) {
@@ -338,7 +338,7 @@ public class Jogo {
                 this.pecas.add(temp);
 
                 // Finalmente colocamos a referencia da Peca na sua posicao na matriz de Pecas se esta posicao estiver vazia.
-                if (pecas[linha-1][coluna-97] != null) {
+                if (pecas[linha-1][coluna-97] == null) {
                     pecas[linha-1][coluna-97] = temp;
                 } else {
                     // Caso contrario o arquivo indica duas Pecas na mesma posicao e por isso disparamos Excecao.
@@ -368,10 +368,9 @@ public class Jogo {
     
     /**
      * Metodo responsavel por salvar o estado do jogo em um arquivo .txt.
+     * @param file_name Nome do arquivo em que salvaremos o jogo (Sem '.txt').
      */
-    private void salvar(Scanner in) {
-        System.out.println("Digite o nome do arquivo em que deseja salvar o jogo: (Sem .txt)");
-        String file_name = in.nextLine();
+    private void salvar(String file_name) {
         // Em um bloco de try catch tentamos gravar os dados no arquivo que o usuario forneceu.
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file_name+".txt"))){
             // Primeiro salvamos todos os dados que o Jogo tem, nomes dos jogadores e a cor do jogador ativo.
@@ -494,8 +493,8 @@ public class Jogo {
 
                 // Se a entrada for "Sair" o avisamos que seu jogo nao sera salvo e perguntamos se tem certeza que quer sair.
                 if (str.equalsIgnoreCase("Sair")) {
-                    System.out.println("Deseja mesmo sair? Seu jogo nao sera salvo! Para salvar digite Nao e logo depois Salvar.");
-                    System.out.println("Se quer mesmo sair digite SIM");
+                    System.out.println("Deseja mesmo sair? Seu jogo nao sera salvo! Para salvar digite 'Nao' e logo depois 'Salvar'.");
+                    System.out.println("Se quer mesmo sair digite 'SIM' se nao quer sair digite 'NAO'");
                     str = ent.nextLine();
                     if (str.equalsIgnoreCase("Nao")) {
                         continue;
@@ -507,7 +506,9 @@ public class Jogo {
                 // Se a entrada for "Salvar", chama o metodo salvarJogo() e logo depois pergunta se o usuario quer continuar jogando
                 // ou sair do jogo. Tratamos ambos os casos.
                 if (str.equalsIgnoreCase("Salvar")) {
-                    this.salvar(ent);
+                    System.out.println("Digite o nome do arquivo em que deseja salvar o jogo: (Sem .txt)");
+                    String file_name = ent.nextLine();
+                    this.salvar(file_name);
                     System.out.println("Deseja continuar jogando?");
                     str = ent.nextLine();
                     if (str.equalsIgnoreCase("Sim")) {
