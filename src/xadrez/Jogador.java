@@ -54,6 +54,13 @@ public class Jogador {
     }
 
     /**
+     * Metodo usado para limpar a Lista de Pecas de um Jogador.
+     */
+    public void limpaPecas() {
+        this.pecas.clear();
+    }
+
+    /**
      * Metodo utilizado para ver uma lista das Pecas que estao no controle do Jogador.
      */
     public void verPecas() {

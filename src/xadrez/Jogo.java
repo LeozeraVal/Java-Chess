@@ -38,24 +38,30 @@ public class Jogo {
         Scanner ent = new Scanner(System.in);
         System.out.println("Bem Vindo ao Xadrez no terminal! (Programa por Leonardo Valerio Morales)");
         
-        // Usamos a flag true pra sair do loop quando finalmente obtivermos uma entrada valida.
+        // Usamos a flag pra sair do loop quando finalmente obtivermos uma entrada valida.
         boolean flag = true;
         do {
             System.out.println("Deseja carregar um jogo ou iniciar um novo? Digite 'Carregar' para carregar um jogo ou 'Novo' para iniciar um novo jogo.");
+            // Utilizamos um try catch para filtrar entradas incorretas no programa.
             try {
                 String str = ent.nextLine();
+                // Caso a entrada nao tenha nenhum comando jogamos excecao.
                 if (str.length() < 1) {
-                    throw new Exception();
+                    throw new Exception("Sem entrada.");
                 }
+                // Caso a entrada seja "Novo", saimos do loop setando a flag como false.
                 if (str.equalsIgnoreCase("Novo")) {
                     flag = false;
                 } else if (str.equalsIgnoreCase("Carregar")) {
+                    // Caso a entrada seja Carregar iremos chamar o metodo carregar para carregar o jogo.
                     System.out.println("Digite o nome do arquivo em que deseja carregar o jogo: (Sem '.txt')");
                     // Recebemos o nome do arquivo a ser carregado.
                     String file_name = ent.nextLine();
+                    // Caso tenha carregado com sucesso retornamos.
                     if(this.carregar(file_name)){
                         return;
                     } else {
+                        // Caso contrario dizemos que houve erro e pedimos outro comando.
                         System.out.println("Erro ao carregar Arquivo.");
                         continue;
                     }
@@ -357,10 +363,18 @@ public class Jogo {
             return false;
         } catch (IOException e) {
             System.out.println("Excecao de E/S!. Provavelmente o numero de Pecas nao equivale ao Numero de Posicoes no arquivo.");
+            // Como inserimos Pecas na lista de Pecas do jogo e do jogador precisamos limpar as mesmas caso um erro ocorra.
+            this.pecas.clear();
+            this.j1.limpaPecas();
+            this.j2.limpaPecas();
             return false;
         } catch (Exception e) {
             // Aqui tratamos as excecoes diversas printando a mensagem e retornando false.
             System.out.println(e.getMessage()); 
+            // Como inserimos Pecas na lista de Pecas do jogo e do jogador precisamos limpar as mesmas caso um erro ocorra.
+            this.pecas.clear();
+            this.j1.limpaPecas();
+            this.j2.limpaPecas();
             return false;
         }
         return true;
