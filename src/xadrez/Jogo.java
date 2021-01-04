@@ -36,12 +36,12 @@ public class Jogo {
         
         // Abre um Scanner
         Scanner ent = new Scanner(System.in);
-        System.out.println("Bem Vindo ao Xadrez no terminal!");
+        System.out.println("Bem Vindo ao Xadrez no terminal! (Programa por Leonardo Valerio Morales)");
         
         // Usamos a flag true pra sair do loop quando finalmente obtivermos uma entrada valida.
         boolean flag = true;
         do {
-            System.out.println("Deseja carregar um jogo ou iniciar um novo? (Digite Carregar ou Novo)");
+            System.out.println("Deseja carregar um jogo ou iniciar um novo? Digite 'Carregar' para carregar um jogo ou 'Novo' para iniciar um novo jogo.");
             try {
                 String str = ent.nextLine();
                 if (str.length() < 1) {
@@ -136,7 +136,7 @@ public class Jogo {
 
         // Se o movimento nao foi efetuado comunicamos ao jogador, voltamos temp a null e retornamos false.
         if (!this.tabuleiro.mover(linha_orig, coluna_orig, linha_dest, coluna_dest, cor)) {
-            System.out.println("Ainda eh sua vez");
+            System.out.println("Ainda esta na sua vez.");
             temp = null;
             return false;
         }
@@ -486,7 +486,8 @@ public class Jogo {
             this.turn.verPecas();
             // Utilizamos um try catch para tratar qualquer excecao oriunda do Scanner.
             try {
-                System.out.println("Insira um comando:");
+                System.out.println("Insira um comando: ('Sair', 'Salvar', 'Desistir', 'Empate')");
+                System.out.println("Ou um movimento: ('colunaOrigemLinhaOrigem colunaDestinoLinhaDestino')");
                 // Espera uma entrada.
                 String str = ent.nextLine();
                 str = this.trataEntrada(str);
@@ -524,7 +525,7 @@ public class Jogo {
     
                 // Se a entrada for "Empate", a proxima entrada do teclado sera a resposta do oponente para a proposta de empate.
                 if (str.equalsIgnoreCase("Empate")) {
-                    System.out.println(this.turn.getNome() + " deseja terminara partida em empate, aceita? (Digite Sim ou Nao)");
+                    System.out.println(this.turn.getNome() + " deseja terminara partida em empate, aceita? (Digite 'Sim' ou 'Nao')");
                     str = ent.nextLine();
                     // Se sim, anunciamos o empate e saimos do loop.
                     if (str.equalsIgnoreCase("Sim")) {
@@ -538,27 +539,27 @@ public class Jogo {
                 // Entao, caso nao seja uma desistencia ou empate, lemos os comandos inseridos no terminal e tentamos efetuar o movimento.
                 if(mover(str.charAt(0), str.charAt(1) - 48, str.charAt(3), str.charAt(4) - 48, this.turn.getCor())) {
                     System.out.println("Movimento Efetuado!");
-                    // Caso o movimento foi efetuado, vemos se colocou o inimigo em cheque.
+                    // Caso o movimento foi efetuado, vemos se colocou o inimigo em xeque.
                     if (this.turn == j1) {
-                        if (this.tabuleiro.cheque('p')) {
-                            // Se sim, checamos se foi cheque mate
-                            if (this.tabuleiro.chequeMate('b')) {
-                                // Caso o cheque mate tenha sido efetuado, anunciamos a vitoria do jogador e colocamos a flag fim em true.
-                                System.out.println("Cheque Mate! O jogador " + this.j1.getNome() + " ganha por cheque mate!");
+                        if (this.tabuleiro.xeque('p')) {
+                            // Se sim, checamos se foi xeque mate
+                            if (this.tabuleiro.xequeMate('b')) {
+                                // Caso o xeque mate tenha sido efetuado, anunciamos a vitoria do jogador e colocamos a flag fim em true.
+                                System.out.println("Xeque Mate! O jogador " + this.j1.getNome() + " ganha por xeque mate!");
                                 fim = true;
                             } else {
-                                // Se foi apenas cheque anunciamos que o jogador colocu seu inimigo em cheque.
-                                System.out.println("O jogador " + this.j1.getNome() + " colocou " + this.j2.getNome() + " em cheque.");
+                                // Se foi apenas xeque anunciamos que o jogador colocu seu inimigo em xeque.
+                                System.out.println("O jogador " + this.j1.getNome() + " colocou " + this.j2.getNome() + " em xeque.");
                             }
                         }
                     } else {
                         // Caso identido ao superior porem para o jogador 2.
-                        if (this.tabuleiro.cheque('b')) {
-                            if (this.tabuleiro.chequeMate('p')) {
-                                System.out.println("Cheque Mate! O jogador " + this.j2.getNome() + " ganha por cheque mate!");
+                        if (this.tabuleiro.xeque('b')) {
+                            if (this.tabuleiro.xequeMate('p')) {
+                                System.out.println("Xeque Mate! O jogador " + this.j2.getNome() + " ganha por xeque mate!");
                                 fim = true;
                             } else {
-                                System.out.println("O jogador " + this.j2.getNome() + " colocou " + this.j1.getNome() + " em cheque.");
+                                System.out.println("O jogador " + this.j2.getNome() + " colocou " + this.j1.getNome() + " em xeque.");
                             }
                         }
                     }
@@ -568,14 +569,14 @@ public class Jogo {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.out.println("Insira uma entrada Valida. As entradas validas sao:");
-                System.out.println("Desistir, Empate, Salvar, ColunaLinha ColunaLinha");
+                System.out.println("'Sair' , 'Desistir', 'Empate', 'Salvar', 'ColunaLinha ColunaLinha'");
                 continue;
             }
         }
         // Caso o jogo tenha chego ao fim, printamos o tabuleiro uma ultima vez.
         this.tabuleiro.printTabuleiro();
         // Agradecemos por jogar e esperamos o ENTER para sair do metodo.
-        System.out.println("Obrigado por jogar! Aperte ENTER para sair.");
+        System.out.println("Obrigado por jogar! Aperte ENTER para sair. (Programa por Leonardo Valerio Morales)");
         ent.nextLine();
         ent.close();
         return;

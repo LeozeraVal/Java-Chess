@@ -126,14 +126,14 @@ public class Tabuleiro {
         // Enfim, colocamos a Peca que esta presenta na origem no destino e simultaneamente retiramos da origem.
         this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(this.posicoes[linha_orig-1][coluna_orig-97].removePeca());
 
-        // Entao checamos se o movimento colocou o rei aliado em cheque:
-        if(this.cheque(cor)) {
+        // Entao checamos se o movimento colocou o rei aliado em xeque:
+        if(this.xeque(cor)) {
             // Se sim, revertemos o movimento.
             this.posicoes[linha_orig-1][coluna_orig-97].colocaPeca(this.posicoes[linha_dest-1][coluna_dest-97].removePeca());
             // E se existia uma peca na posicao de destino a colocamos de volta.
             this.posicoes[linha_dest-1][coluna_dest-97].colocaPeca(temp);
             // Comunicamos o erro e retornamos false.
-            System.out.println("Este movimento coloca seu Rei em cheque, portanto eh invalido.");
+            System.out.println("Este movimento coloca seu Rei em xeque, portanto eh invalido.");
             return false;
         }
         // Se chegou ate aqui o movimento foi efetuado e validado, retornamos true.
@@ -181,7 +181,7 @@ public class Tabuleiro {
 
         // Depois chama o metodo que checa o caminho deste movimento e se tem alguma Peca o obstruindo.
         // Nao fazemos esta checagem para o Cavalo pq ele pula mt bem.
-        if (!this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("xadrez.Cavalo")) {
+        if (!this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getSimpleName().equals("Cavalo")) {
             if (!this.checaCaminhoMovimento(linha_orig, coluna_orig, linha_dest, coluna_dest)) {
                 return -5;
             }
@@ -191,7 +191,7 @@ public class Tabuleiro {
         // e so pode se mover para frente caso nao existe uma peca no seu destino.
         // Por ja ter checado que o movimento eh valido pela peca, sabemos que o Peao ou esta se movendo uma casa nas suas diagonais ou
         // para frente.
-        if (this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getName().equals("xadrez.Peao")) {
+        if (this.posicoes[linha_orig-1][coluna_orig-97].getPeca().getClass().getSimpleName().equals("Peao")) {
             
             // Caso o movimento seja frontal e no seu destino tenha uma Peca, retorna erro, pois o Peao nao come para frente.
             if (coluna_dest == coluna_orig && this.posicoes[linha_dest-1][coluna_dest-97].temPeca()) {
@@ -397,11 +397,11 @@ public class Tabuleiro {
     }
 
     /**
-     * Metodo que sera chamado para checar se um time especifico esta em cheque dada a situacao atual do tabuleiro.
-     * @param cor_rei Cor do rei do time a ser analisado. Ou seja o rei alvo do cheque.
-     * @return true caso rei esteja em cheque e false caso contrario.
+     * Metodo que sera chamado para checar se um time especifico esta em xeque dada a situacao atual do tabuleiro.
+     * @param cor_rei Cor do rei do time a ser analisado. Ou seja o rei alvo do xeque.
+     * @return true caso rei esteja em xeque e false caso contrario.
      */
-    public boolean cheque(char cor_rei) {
+    public boolean xeque(char cor_rei) {
         // Primeiro acha o rei da cor_rei.
         Posicao pos_rei = this.achaRei(cor_rei);
         // Descontruimos a posicao do rei nas variaveis linha_rei e coluna _rei.
@@ -417,7 +417,7 @@ public class Tabuleiro {
         }
 
         // Para cada posicao do Tabuleiro, se esta posicao possui uma peca da cor_atacante, checamos se um movimento
-        // ate o rei inimigo seria valido usando a funcao checaMovimentoGlobal(). Caso sim, entao o rei esta em cheque e retornamos true.
+        // ate o rei inimigo seria valido usando a funcao checaMovimentoGlobal(). Caso sim, entao o rei esta em xeque e retornamos true.
         for (int linha = 0; linha < 8; linha++) {
             for (int coluna = 0; coluna < 8; coluna++) {
                 if (this.posicoes[linha][coluna].temPeca()) {
@@ -429,18 +429,18 @@ public class Tabuleiro {
                 }
             }
         }
-        // Se chegou ate aqui, nenhuma peca da cor_atacante consegue chegar ao rei da cor_rei, portanto o mesmo nao esta em cheque.
+        // Se chegou ate aqui, nenhuma peca da cor_atacante consegue chegar ao rei da cor_rei, portanto o mesmo nao esta em xeque.
         return false;
     }
 
     /**
-     * Metodo que sera chamado para checar se um time especifico esta em cheque dada a situacao atual do tabuleiro.
+     * Metodo que sera chamado para checar se um time especifico esta em xeque dada a situacao atual do tabuleiro.
      * @param linha_rei Linha onde se localiza o Rei do time atacado.
      * @param coluna_rei Coluna onde se localiza o Rei do time atacado.
      * @param cor_rei Cor do rei atacado.
-     * @return true caso o rei esteja em cheque e false caso contrario.
+     * @return true caso o rei esteja em xeque e false caso contrario.
      */
-    public boolean cheque(int linha_rei, char coluna_rei, char cor_rei) {
+    public boolean xeque(int linha_rei, char coluna_rei, char cor_rei) {
         // Para agilizar, guardamos a cor do time atacante ao rei na variavel cor_atacante.
         char cor_atacante;
         if (cor_rei == 'b') {
@@ -450,7 +450,7 @@ public class Tabuleiro {
         }
 
         // Para cada posicao do Tabuleiro, se esta posicao possui uma peca da cor_atacante, checamos se um movimento
-        // ate o rei inimigo seria valido usando a funcao checaMovimentoGlobal(). Caso sim, entao o rei esta em cheque e retornamos true.
+        // ate o rei inimigo seria valido usando a funcao checaMovimentoGlobal(). Caso sim, entao o rei esta em xeque e retornamos true.
         for (int linha = 0; linha < 8; linha++) {
             for (int coluna = 0; coluna < 8; coluna++) {
                 if (this.posicoes[linha][coluna].temPeca()) {
@@ -462,16 +462,16 @@ public class Tabuleiro {
                 }
             }
         }
-        // Se chegou ate aqui, nenhuma peca da cor_atacante consegue chegar ao rei da cor_rei, portanto o mesmo nao esta em cheque.
+        // Se chegou ate aqui, nenhuma peca da cor_atacante consegue chegar ao rei da cor_rei, portanto o mesmo nao esta em xeque.
         return false;
     }
 
     /**
      * Metodo que ao ser chamado, verifica se o time da cor_atacante efetuou um cheque_mate.
      * @param cor_atacante Cor do time que esta atacando.
-     * @return true caso seja um cheque mate e false caso contrario.
+     * @return true caso seja um xeque mate e false caso contrario.
      */
-    public boolean chequeMate(char cor_atacante) {
+    public boolean xequeMate(char cor_atacante) {
         // para agilizar, armazenamos a cor do rei inimigo em uma variavel.
         char cor_rei_inimigo;
         if (cor_atacante == 'b') {
@@ -486,7 +486,7 @@ public class Tabuleiro {
         int linha_rei_atual = pos_rei.getLinha();
         char coluna_rei_atual = pos_rei.getColuna();
 
-        // Utilizamos esta flag para podermos armazenar quando achamos uma saida do cheque.
+        // Utilizamos esta flag para podermos armazenar quando achamos uma saida do xeque.
         boolean saida = false;
 
         // Para cada movimento possivel do Rei, ou seja, desde sua linha -1 e coluna -1 ate sua linha +1 e coluna +1: (Por isso linha e coluna_rei_atual)
@@ -502,23 +502,23 @@ public class Tabuleiro {
                 Peca temp = this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca();
                 // Movemos o rei pra casa de destino hipotetico.
                 this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(this.posicoes[linha_rei_atual-1][coluna_rei_atual-97].removePeca());
-                // Rodamos a checagem de cheque naquela posicao, se retornar false, temos uma saida do cheque, portanto atribuimos a
+                // Rodamos a checagem de xeque naquela posicao, se retornar false, temos uma saida do xeque, portanto atribuimos a
                 // booleana saida true.
-                if (!this.cheque(linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
+                if (!this.xeque(linha_rei_temp, (char) coluna_rei_temp, cor_rei_inimigo)) {
                     saida = true;
                 }
                 // Revertemos o movimento temporario que efetuamos para o rei e a peca que foi hipoteticamente comida.
                 this.posicoes[linha_rei_atual-1][coluna_rei_atual-97].colocaPeca(this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].removePeca());
                 this.posicoes[linha_rei_temp-1][coluna_rei_temp-97].colocaPeca(temp);
-                // Apos reverter o movimento, se a variavel saida for true, retornamos false para o cheque mate, pois ha uma saida do
-                // cheque.
+                // Apos reverter o movimento, se a variavel saida for true, retornamos false para o xeque mate, pois ha uma saida do
+                // xeque.
                 if (saida) {
                     return false;    
                 }
             }
         }
 
-        // Agora efetuamos a checagem extensiva de todos os movimentos possiveis das pecas da cor do rei em cheque.
+        // Agora efetuamos a checagem extensiva de todos os movimentos possiveis das pecas da cor do rei em xeque.
         
         // Para cada posicao do tabuleiro.
         for (int linha_atual = 0; linha_atual < 8; linha_atual++) {
@@ -526,22 +526,22 @@ public class Tabuleiro {
                 // Se a peca nesta posicao existe e possui a mesma cor do rei :
                 if (this.posicoes[linha_atual][coluna_atual].temPeca() && this.posicoes[linha_atual][coluna_atual].getPeca().getCor() == cor_rei_inimigo) {
                     // Caso for o proprio rei pulamos. (ja checamos todas as possibilidades de movimento do mesmo)
-                    if (this.posicoes[linha_atual][coluna_atual].getPeca().getClass().getName().equals("xadrez.Rei")) {
+                    if (this.posicoes[linha_atual][coluna_atual].getPeca().getClass().getSimpleName().equals("Rei")) {
                         continue;
                     }
 
                     // Checamos todos os movimentos possiveis da peca (Para todas as posicoes do tabuleiro),
-                    // fazemos um movimento temporario e checamos se ainda existe o cheque.
+                    // fazemos um movimento temporario e checamos se ainda existe o xeque.
                     for (int linha_temp = 0; linha_temp < 8; linha_temp++) {
                         for (int coluna_temp = 0; coluna_temp < 8; coluna_temp++) {
                             // Caso o movimento desta peca ate o destino seja possivel.
                             if (this.checaMovimentoGlobal(linha_atual+1, (char) (coluna_atual+97), linha_temp+1, (char) (coluna_temp+97), cor_rei_inimigo) == 1) {
-                                // Efetuamos um movimento temporario ate o destino e checamos se o cheque permanece.
+                                // Efetuamos um movimento temporario ate o destino e checamos se o xeque permanece.
                                 Peca temp = posicoes[linha_temp][coluna_temp].removePeca();
                                 this.posicoes[linha_temp][coluna_temp].colocaPeca(this.posicoes[linha_atual][coluna_atual].removePeca());
 
-                                // Caso o rei nao esteja mais em cheque, atribuimos a variavel saida true.
-                                if (!this.cheque(linha_rei_atual, (char) coluna_rei_atual, cor_rei_inimigo)) {
+                                // Caso o rei nao esteja mais em xeque, atribuimos a variavel saida true.
+                                if (!this.xeque(linha_rei_atual, (char) coluna_rei_atual, cor_rei_inimigo)) {
                                     saida = true;
 
                                 }
@@ -549,8 +549,8 @@ public class Tabuleiro {
                                 this.posicoes[linha_atual][coluna_atual].colocaPeca(this.posicoes[linha_temp][coluna_temp].removePeca());
                                 this.posicoes[linha_temp][coluna_temp].colocaPeca(temp);
 
-                                // Apos reverter o movimento, se a variavel saida for true, retornamos false para o cheque mate, pois ha uma saida do
-                                // cheque.
+                                // Apos reverter o movimento, se a variavel saida for true, retornamos false para o xeque mate, pois ha uma saida do
+                                // xeque.
                                 if (saida) {
                                    return false; 
                                 }
@@ -561,7 +561,7 @@ public class Tabuleiro {
             }
         }
 
-        // Se chegou aqui, testamos todos os movimentos possiveis e nenhum retirou o rei de cheque, portanto retornamos verdadeiro para cheque mate.
+        // Se chegou aqui, testamos todos os movimentos possiveis e nenhum retirou o rei de xeque, portanto retornamos verdadeiro para xeque mate.
         return true;
     }
 
@@ -577,8 +577,8 @@ public class Tabuleiro {
                 // Se existe uma Peca e a Peca possui a Cor alvo:
                 if (this.posicoes[linha][coluna].temPeca()) {
                     if (this.posicoes[linha][coluna].getPeca().getCor() == cor) {
-                        // Checamos o nome da classe em tempo de execucao da Peca, se for igual a "xadrez.Rei" achamos o rei que procuramos.
-                        if(this.posicoes[linha][coluna].getPeca().getClass().getName().equals("xadrez.Rei")) {
+                        // Checamos o nome da classe em tempo de execucao da Peca, se for igual a "Rei" achamos o rei que procuramos.
+                        if(this.posicoes[linha][coluna].getPeca().getClass().getSimpleName().equals("Rei")) {
                             return this.posicoes[linha][coluna];
                         }
                     }
