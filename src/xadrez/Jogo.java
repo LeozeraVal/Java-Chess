@@ -534,7 +534,7 @@ public class Jogo {
 
                 // Se a entrada for "Desistir", anuncia a desistencia do jogador da vez e sai do loop.
                 if (str.equalsIgnoreCase("Desistir")) {
-                    System.out.println(this.turn.getNome() + " desitiu.");
+                    System.out.println(this.turn.getNome() + " desistiu.");
                     break;
                 }
     
