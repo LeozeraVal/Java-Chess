@@ -369,6 +369,7 @@ public class Jogo {
             this.j2.limpaPecas();
             this.j1 = null;
             this.j2 = null;
+            this.turn = null;
             return false;
         } catch (Exception e) {
             // Aqui tratamos as excecoes diversas printando a mensagem e retornando false.
@@ -379,6 +380,7 @@ public class Jogo {
             this.j2.limpaPecas();
             this.j1 = null;
             this.j2 = null;
+            this.turn = null;
             return false;
         }
         return true;
