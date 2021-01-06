@@ -7,16 +7,20 @@ import java.util.LinkedList;
  * @author Leonardo Valerio
  */
 public class Tabuleiro {
-    // Cria um vetor bidimencional para guardar as posicoes.
+    // Vetor bidimencional para guardar as posicoes.
     private Posicao[][] posicoes;
     
     /**
      * Construtor que inicializa e itera pelo vetor de posicoes atribuindo a coluna, linha e a cor de cada posicao.
      */
     public Tabuleiro() {
+        // Cria um vetor bidimencional para guardar as posicoes.
         this.posicoes = new Posicao[8][8];
+        // Para cada coluna de cada linha:
         for (int linha = 0; linha < this.posicoes.length; linha++) {
             for (int coluna = 0; coluna < this.posicoes[linha].length; coluna++) {
+                // Se a soma do valor da linha e da coluna for par, a posicao eh preta, caso contrario eh branca.
+                // Desta forma a matriz fica perfeitamente similar a um tabuleiro de xadrez onde [0][0] seria a1.
                 if ((linha + coluna) % 2 == 0) {
                     this.posicoes[linha][coluna] = new Posicao('p', linha+1, (char)(coluna+97));
                 } else {
@@ -33,6 +37,9 @@ public class Tabuleiro {
      * @param pecas Vetor que possui as pecas previamente inicializadas.
      */
     public void populaNovoTabuleiro(LinkedList<Peca> pecas) {
+        // Assumimos que as pecas estao em sua posicao padrao, ou seja, sequencialmente na lista possuimos
+        // as pecas unicas brancas, entao os peoes brancos, depois as unicas pretas e por fim os peos pretos.
+        // Portanto de 0 a 7 temos todas as pecas unicas da cor branca.
         this.posicoes[0][0].colocaPeca(pecas.get(0));
         this.posicoes[0][1].colocaPeca(pecas.get(1));
         this.posicoes[0][2].colocaPeca(pecas.get(2));
@@ -42,6 +49,7 @@ public class Tabuleiro {
         this.posicoes[0][6].colocaPeca(pecas.get(6));
         this.posicoes[0][7].colocaPeca(pecas.get(7));
         
+        // Entao colocamos todos os Peoes brancos.
         int i = 0;
         int j = 8;
         while (i < 8 && j < 16) {
@@ -50,6 +58,7 @@ public class Tabuleiro {
             j++;
         }
 
+        // Daqui temos as pecas unicas pretas de 16 a 23.
         this.posicoes[7][0].colocaPeca(pecas.get(16));
         this.posicoes[7][1].colocaPeca(pecas.get(17));
         this.posicoes[7][2].colocaPeca(pecas.get(18));
@@ -59,6 +68,7 @@ public class Tabuleiro {
         this.posicoes[7][6].colocaPeca(pecas.get(22));
         this.posicoes[7][7].colocaPeca(pecas.get(23));
 
+        // E por fim os peoes pretos de 24 ate 31.
         i = 0;
         j = 24;
         while (i < 8 && j < 32) {
