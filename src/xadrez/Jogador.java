@@ -3,6 +3,10 @@ package xadrez;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * Classe Jogador, possuindo nome, cor, pecas e metodos que manipulam suas pecas.
+ * @author Leonardo Valerio
+ */
 public class Jogador {
     // Cada Jogador Possui um nome.
     private String nome;
