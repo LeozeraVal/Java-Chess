@@ -14,7 +14,8 @@ public class Jogador {
     /**
      * Construtor do Jogador, cria um novo jogador com o nome e cor inseridos caso validos.
      * @param nome Nome do Jogador a ser criado.
-     * @param cor Cor que o Jogador comanda
+     * @param cor Cor que o Jogador comanda.
+     * @throws Exception Possui a mensagem de cor invalida do Jogador.
      */
     public Jogador(String nome, char cor) throws Exception {
         // Atribui o nome ao jogador

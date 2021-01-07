@@ -88,7 +88,6 @@ public class Tabuleiro {
      * @param coluna_dest Coluna de destino do movimento.
      * @param cor Cor do jogador que esta efetuando o movimento.
      * @return true caso movimento tenha sido efetuado, false caso contrario.
-     * @return
      */
     public boolean mover(int linha_orig, char coluna_orig, int linha_dest, char coluna_dest, char cor) {
 
