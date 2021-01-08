@@ -514,7 +514,7 @@ public class Jogo {
                 // Se a entrada for "Sair" o avisamos que seu jogo nao sera salvo e perguntamos se tem certeza que quer sair.
                 if (str.equalsIgnoreCase("Sair")) {
                     System.out.println("Deseja mesmo sair? Seu jogo nao sera salvo! Para salvar digite 'Nao' e logo depois 'Salvar'.");
-                    System.out.println("Se quer mesmo sair digite 'SIM' se nao quer sair digite 'NAO'");
+                    System.out.println("Se quer mesmo sair digite 'SIM', se nao quer sair digite 'NAO'");
                     str = ent.nextLine();
                     if (str.equalsIgnoreCase("Nao")) {
                         continue;
