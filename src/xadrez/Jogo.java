@@ -526,7 +526,8 @@ public class Jogo {
                 // Espera uma entrada.
                 String str = ent.nextLine();
                 str = this.trataEntrada(str);
-
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 // Se a entrada for "Sair" o avisamos que seu jogo nao sera salvo e perguntamos se tem certeza que quer sair.
                 if (str.equalsIgnoreCase("Sair")) {
                     System.out.println("Deseja mesmo sair? Seu jogo nao sera salvo! Para salvar digite 'Nao' e logo depois 'Salvar'.");
@@ -604,6 +605,8 @@ public class Jogo {
                     this.passarVez();
                 }
             } catch (Exception e) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 System.out.println(e.getMessage());
                 System.out.println("Insira uma entrada Valida. As entradas validas sao:");
                 System.out.println("'Sair' , 'Desistir', 'Empate', 'Salvar', 'ColunaLinha ColunaLinha'");

@@ -1,0 +1,34 @@
+Magnus Carlsen
+Daniil Dubov
+b
+30
+a1 b Torre
+b1 b Cavalo
+c1 b Bispo
+d1 b Dama
+e1 b Rei
+h1 b Torre
+a2 b Peao
+b2 b Peao
+f2 b Peao
+g2 b Peao
+h2 b Peao
+b3 b Bispo
+c3 b Peao
+d3 b Peao
+f3 b Cavalo
+b5 p Peao
+c5 p Bispo
+d5 p Cavalo
+e5 p Peao
+a6 p Peao
+c6 p Cavalo
+c7 p Peao
+f7 p Peao
+g7 p Peao
+h7 p Peao
+a8 p Torre
+c8 p Bispo
+d8 p Dama
+e8 p Rei
+h8 p Torre
