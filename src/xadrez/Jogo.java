@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -16,7 +18,8 @@ import java.util.Scanner;
  */
 public class Jogo {
 
-    // Possui um tabuleiro, um vetor de pecas , possui uma variavel turn que representa de quem eh a vez no momento,
+    // Possui um tabuleiro, um vetor de pecas , possui uma variavel turn que
+    // representa de quem eh a vez no momento,
     // e dois jogadores.
     private Tabuleiro tabuleiro;
     private Jogador turn;
@@ -25,9 +28,22 @@ public class Jogo {
     private LinkedList<Peca> pecas;
 
     /**
-     * O construtor da classe jogo eh responsavel por alocar todas as pecas, o tabuleiro, os jogadores e atribuir aos jogadores suas pecas.
+     * O construtor da classe jogo eh responsavel por alocar todas as pecas, o
+     * tabuleiro, os jogadores e atribuir aos jogadores suas pecas.
      */
     public Jogo() {
+        // Para imprimirmos o tabuleiro e suas pecas de maneira compreensivel temos que utilizar Unicode, contudo,
+        // alguns sistemas nao suportam o seu charset UTF-8 ou nao o tem como padrao, System.out sempre utiliza o 
+        // charset padrao do sistema e portanto precisamos o modificar utilizando o metodo setOut com uma nova 
+        // PrintStream com o charset UTF-8.
+        try {
+            System.setOut(new PrintStream(System.out, true, "UTF-8"));
+        } catch (SecurityException e) {
+            throw new InternalError("Mudanca de Encoding para Unicode nao permitida.");
+        } catch (UnsupportedEncodingException e) {
+            // Nunca ocorrera pois "UTF-8" eh suportado pelo construtor de PrintStream.
+            e.printStackTrace();
+        }
         // Instancia um tabuleiro.
         this.tabuleiro = new Tabuleiro();
         // Instancia um vetor de Peca.
