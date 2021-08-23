@@ -12,4 +12,4 @@ java xadrez.Gerenciador
 
 ## Preview
 
-![ezgif-3-fb084456e4bc.gif](T-Chess%20ec7b7a7d7dc04b168bfff5bf3aeb09ff/ezgif-3-fb084456e4bc.gif)
+![ezgif-3-fb084456e4bc.gif](T-Chess%209b496d2b3fac4a258db80a0d5bb3ef3a/ezgif-3-fb084456e4bc.gif)
